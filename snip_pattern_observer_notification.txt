@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_pattern_observer_notification</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Observer pattern using NSNotificationCenter
+
+// Define notification name
+static NSString * const MyCustomNotification = @"MyCustomNotification";
+
+// Post notification
+- (void)postNotificationWithData:(id)data {
+    NSDictionary *userInfo = @{@"data": data};
+    [[NSNotificationCenter defaultCenter] postNotificationName:MyCustomNotification 
+                                                        object:self 
+                                                      userInfo:userInfo];
+}
+
+// Register observer
+- (void)registerForNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(handleNotification:) 
+                                                 name:MyCustomNotification 
+                                               object:nil];
+}
+
+// Handle notification
+- (void)handleNotification:(NSNotification *)notification {
+    id data = notification.userInfo[@"data"];
+    NSLog(@"Received notification with data: %@", data);
+}
+
+// Unregister observer (important!)
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B2C3D4E5-F6A7-4B5C-8D9E-2F3A4B5C6D7E</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Observer pattern using NSNotificationCenter</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Pattern Observer Notification</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

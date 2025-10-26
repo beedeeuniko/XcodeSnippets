@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_mvc_example</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// MVC
+//
+// Model, View, Controller
+//
+// Model is updated by the Controller, calls back the controller when changed
+// View is updated by the Controller, calls back the Controller about user actions
+// Controller updated the Model and the View, is notified of changes by the model, is notifies of user actions on the view
+//</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E7636E3A-1464-4B02-9958-7DA29BF02A4C</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>mvc description</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>MVC</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_net_urlsession_configuration</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// NSURLSession with custom configuration
+NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+
+// Set timeout intervals
+configuration.timeoutIntervalForRequest = 30.0;
+configuration.timeoutIntervalForResource = 60.0;
+
+// Set cache policy
+configuration.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+
+// Configure HTTP headers
+configuration.HTTPAdditionalHeaders = @{
+    @"Accept": @"application/json",
+    @"User-Agent": @"YourApp/1.0"
+};
+
+// Set connection requirements
+configuration.allowsCellularAccess = YES;
+configuration.waitsForConnectivity = YES;
+
+// Configure cookie handling
+configuration.HTTPCookieAcceptPolicy = NSHTTPCookieAcceptPolicyAlways;
+configuration.HTTPShouldSetCookies = YES;
+
+// Set maximum connections
+configuration.HTTPMaximumConnectionsPerHost = 4;
+
+// Create session with configuration
+NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration 
+                                                      delegate:self 
+                                                 delegateQueue:[NSOperationQueue mainQueue]];
+
+// Use session for requests
+NSURL *url = [NSURL URLWithString:@"https://api.example.com/data"];
+NSURLSessionDataTask *task = [session dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    // Handle response
+}];
+[task resume];

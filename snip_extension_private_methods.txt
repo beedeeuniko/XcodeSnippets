@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_extension_private_methods</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Class extension with private method declarations
+@interface ClassName ()
+
+- (void)setupInitialState;
+- (void)validateData:(id)data completion:(void (^)(BOOL valid))completion;
+- (NSString *)formatValue:(id)value;
+- (void)handleError:(NSError *)error;
+
+@end
+
+@implementation ClassName
+
+- (void)setupInitialState {
+    // Setup implementation
+}
+
+- (void)validateData:(id)data completion:(void (^)(BOOL valid))completion {
+    // Validation logic
+    if (completion) {
+        completion(YES);
+    }
+}
+
+- (NSString *)formatValue:(id)value {
+    return [NSString stringWithFormat:@"%@", value];
+}
+
+- (void)handleError:(NSError *)error {
+    NSLog(@"Error: %@", error.localizedDescription);
+}
+
+@end</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>A9B0C1D2-E3F4-4A5B-5C6D-9E0F1A2B3C4D</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Class extension with private method declarations and implementations</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Extension Private Methods</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

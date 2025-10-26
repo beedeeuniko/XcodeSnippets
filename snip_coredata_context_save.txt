@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_coredata_context_save</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Save managed object context with error handling
+NSError *error = nil;
+if ([self.managedObjectContext hasChanges]) {
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Failed to save context: %@", error.localizedDescription);
+        NSLog(@"Error details: %@", [error userInfo]);
+        // Handle error appropriately
+    } else {
+        NSLog(@"Context saved successfully");
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E3F4A5B6-C7D8-4E5F-9A0B-3C4D5E6F7A8B</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Save managed object context with proper error handling</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Core Data Context Save</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

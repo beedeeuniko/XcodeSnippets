@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_pattern_delegate_custom</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Custom delegate pattern
+
+// Protocol definition (in header)
+@protocol CustomClassDelegate <NSObject>
+
+@required
+- (void)customClass:(id)sender didCompleteWithResult:(id)result;
+
+@optional
+- (void)customClass:(id)sender didFailWithError:(NSError *)error;
+- (BOOL)customClassShouldProceed:(id)sender;
+
+@end
+
+// Class with delegate (in header)
+@interface CustomClass : NSObject
+
+@property (nonatomic, weak) id<CustomClassDelegate> delegate;
+
+- (void)performAction;
+
+@end
+
+// Implementation
+@implementation CustomClass
+
+- (void)performAction {
+    // Check if delegate implements optional method
+    if ([self.delegate respondsToSelector:@selector(customClassShouldProceed:)]) {
+        if (![self.delegate customClassShouldProceed:self]) {
+            return;
+        }
+    }
+    
+    // Do work...
+    id result = @"Success";
+    
+    // Call required delegate method
+    [self.delegate customClass:self didCompleteWithResult:result];
+}
+
+@end

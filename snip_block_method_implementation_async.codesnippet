@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_block_method_implementation_async</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Async method implementation with completion
+- (void)fetchDataWithCompletion:(void (^)(id _Nullable result, NSError * _Nullable error))completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Perform background work
+        id result = nil;
+        NSError *error = nil;
+        
+        // Do work here...
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(result, error);
+            }
+        });
+    });
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>F6A7B8C9-D0E1-4F5A-2B3C-6D7E8F9A0B1C</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Async method implementation with completion block</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Block Method Implementation - Async</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

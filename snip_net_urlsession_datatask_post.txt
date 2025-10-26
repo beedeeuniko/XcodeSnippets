@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_net_urlsession_datatask_post</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// NSURLSession POST request with JSON
+NSURL *url = [NSURL URLWithString:@"https://api.example.com/data"];
+NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+[request setHTTPMethod:@"POST"];
+[request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+
+// Create JSON body
+NSDictionary *bodyDict = @{
+    @"key1": @"value1",
+    @"key2": @(123)
+};
+
+NSError *jsonError = nil;
+NSData *bodyData = [NSJSONSerialization dataWithJSONObject:bodyDict options:0 error:&jsonError];
+
+if (jsonError) {
+    NSLog(@"JSON Error: %@", jsonError);
+    return;
+}
+
+[request setHTTPBody:bodyData];
+
+NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:request 
+                                                                 completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    if (error) {
+        NSLog(@"Error: %@", error.localizedDescription);
+        return;
+    }
+    
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    NSLog(@"Status Code: %ld", (long)httpResponse.statusCode);
+    
+    if (data) {
+        id jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        NSLog(@"Response: %@", jsonResponse);
+    }
+}];
+
+[dataTask resume];

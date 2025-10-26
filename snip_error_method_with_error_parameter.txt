@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_method_with_error_parameter</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Method with NSError out parameter
+- (BOOL)performOperationWithError:(NSError **)error {
+    // Attempt operation
+    BOOL success = YES; // Your operation result
+    
+    if (!success) {
+        if (error != NULL) {
+            NSDictionary *userInfo = @{
+                NSLocalizedDescriptionKey: @"Operation failed",
+                NSLocalizedFailureReasonErrorKey: @"Invalid input data"
+            };
+            *error = [NSError errorWithDomain:@"com.yourapp.ErrorDomain" 
+                                         code:1001 
+                                     userInfo:userInfo];
+        }
+        return NO;
+    }
+    
+    return YES;
+}
+
+// Usage:
+// NSError *error = nil;
+// BOOL success = [self performOperationWithError:&error];
+// if (!success) {
+//     NSLog(@"Error: %@", error.localizedDescription);
+// }

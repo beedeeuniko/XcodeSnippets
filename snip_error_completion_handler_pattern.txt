@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_completion_handler_pattern</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Error handling with completion handler
+- (void)fetchDataWithCompletion:(void (^)(id result, NSError *error))completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *error = nil;
+        id result = nil;
+        
+        // Perform operation
+        BOOL success = [self performOperation];
+        
+        if (success) {
+            result = @"Success data";
+        } else {
+            error = [NSError errorWithDomain:@"com.yourapp.ErrorDomain"
+                                        code:1001
+                                    userInfo:@{NSLocalizedDescriptionKey: @"Operation failed"}];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completion) {
+                completion(result, error);
+            }
+        });
+    });
+}
+
+// Usage:
+// [self fetchDataWithCompletion:^(id result, NSError *error) {
+//     if (error) {
+//         NSLog(@"Error: %@", error.localizedDescription);
+//     } else {
+//         NSLog(@"Success: %@", result);
+//     }
+// }];

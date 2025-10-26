@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_category_property_declaration</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Category with readonly property (no storage)
+@interface ClassName (CategoryName)
+
+@property (nonatomic, readonly) NSString *computedProperty;
+
+@end
+
+@implementation ClassName (CategoryName)
+
+- (NSString *)computedProperty {
+    // Return computed value
+    return @"computed";
+}
+
+@end</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>A3B4C5D6-E7F8-4A5B-9C0D-3E4F5A6B7C8D</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Category with readonly computed property</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Category Property Declaration</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

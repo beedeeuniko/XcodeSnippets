@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_pattern_composite</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Composite pattern for tree structures
+
+// Component protocol
+@protocol Component <NSObject>
+- (void)operation;
+- (void)addChild:(id<Component>)component;
+- (void)removeChild:(id<Component>)component;
+@end
+
+// Leaf (no children)
+@interface Leaf : NSObject <Component>
+@property (nonatomic, strong) NSString *name;
+@end
+
+@implementation Leaf
+
+- (void)operation {
+    NSLog(@"Leaf operation: %@", self.name);
+}
+
+- (void)addChild:(id<Component>)component {
+    // Leaf cannot have children
+}
+
+- (void)removeChild:(id<Component>)component {
+    // Leaf cannot have children
+}
+
+@end
+
+// Composite (can have children)
+@interface Composite : NSObject <Component>
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSMutableArray<id<Component>> *children;
+@end
+
+@implementation Composite
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _children = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (void)operation {
+    NSLog(@"Composite operation: %@", self.name);
+    for (id<Component> child in self.children) {
+        [child operation];
+    }
+}
+
+- (void)addChild:(id<Component>)component {
+    [self.children addObject:component];
+}
+
+- (void)removeChild:(id<Component>)component {
+    [self.children removeObject:component];
+}
+
+@end

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string></string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import Foundation
+import UIKit
+
+// MARK: - Basic Weak Self Pattern
+
+class NetworkManager {
+    private var timer: Timer?
+    private var dataTask: URLSessionDataTask?
+    
+    func startPeriodicFetch() {
+        // Using weak self to avoid retain cycle with Timer
+        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] _ in
+            self?.fetchData()
+        }
+    }
+    
+    private func fetchData() {
+        let url = URL(string: "https://api.example.com/data")!
+        
+        // Weak self with URLSessionDataTask
+        dataTask = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            DispatchQueue.main.async {
+                self?.handleResponse(data: data, error: error)
+            }
+        }
+        dataTask?.resume()
+    }
+    
+    private func handleResponse(data: Data?, error: Error?) {
+        // Handle response
+        print("Data received: \(data?.count ?? 0) bytes")
+    }
+    
+    deinit {
+        timer?.invalidate()
+        dataTask?.cancel()
+        print("NetworkManager deinitialized")
+    }
+}
+
+// MARK: - Weak Self with Guard Let Pattern
+
+class ViewController: UIViewController {
+    private var loadingView: UIView?
+    
+    func showLoadingWithDelay() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) { [weak self] in
+            // Guard let pattern - early return if self is nil
+            guard let self = self else { return }
+            
+            self.loadingView = UIView()
+            self.loadingView?.backgroundColor = .gray
+            self.view.addSubview(self.loadingView!)
+            self.animateLoading()
+        }
+    }
+    
+    private func animateLoading() {
+        UIView.animate(withDuration: 1.0, animations: { [weak self] in
+            self?.loadingView?.alpha = 0.5
+        }) { [weak self] completed in
+            guard let self = self else { return }
+            if completed {
+                self.hideLoading()
+            }
+        }
+    }
+    
+    private func hideLoading() {
+        loadingView?.removeFromSuperview()
+        loadingView = nil
+    }
+}
+
+// MARK: - Multiple Capture Lists
+
+class DataProcessor {
+    private let queue = DispatchQueue(label: "data.processing")
+    private var isProcessing = false
+    
+    func processData(_ data: [String], completion: @escaping (Bool) -&gt; Void) {
+        queue.async { [weak self] in
+            guard let self = self else {
+                completion(false)
+                return
+            }
+            
+            self.isProcessing = true
+            
+            // Simulate processing
+            Thread.sleep(forTimeInterval: 2.0)
+            
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    completion(false)
+                    return
+                }
+                
+                self.isProcessing = false
+                completion(true)
+                print("Processing completed")
+            }
+        }
+    }
+}
+
+// MARK: - Weak Self with Closures in Properties
+
+class ImageLoader {
+    private var imageCache: [String: UIImage] = [:]
+    
+    lazy var downloadImage: (String, @escaping (UIImage?) -&gt; Void) -&gt; Void = { [weak self] url, completion in
+        guard let self = self else {
+            completion(nil)
+            return
+        }
+        
+        // Check cache first
+        if let cachedImage = self.imageCache[url] {
+            completion(cachedImage)
+            return
+        }
+        
+        // Download image
+        self.performDownload(url: url) { [weak self] image in
+            self?.imageCache[url] = image
+            completion(image)
+        }
+    }
+    
+    private func performDownload(url: String, completion: @escaping (UIImage?) -&gt; Void) {
+        // Simulate download
+        DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
+            let image = UIImage(systemName: "photo")
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }
+    }
+}
+
+// MARK: - When NOT to Use Weak Self
+
+class Counter {
+    private var count = 0
+    
+    func startCounting() {
+        // DON'T use weak self for short-lived operations that complete quickly
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            // This is fine without weak self - operation completes quickly
+            self.count += 1
+            print("Count: \(self.count)")
+        }
+        
+        // DO use weak self for longer operations or repeated calls
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            guard let self = self else { return }
+            self.count += 1
+            print("Timer count: \(self.count)")
+        }
+    }
+}
+
+// MARK: - Weak Self with Escaping Closures
+
+class APIService {
+    private let session = URLSession.shared
+    
+    func fetchUser(id: String, completion: @escaping (User?) -&gt; Void) {
+        let url = URL(string: "https://api.example.com/users/\(id)")!
+        
+        session.dataTask(with: url) { [weak self] data, response, error in
+            guard let self = self else {
+                completion(nil)
+                return
+            }
+            
+            let user = self.parseUser(from: data)
+            
+            DispatchQueue.main.async {
+                completion(user)
+            }
+        }.resume()
+    }
+    
+    private func parseUser(from data: Data?) -&gt; User? {
+        // Parse user from JSON data
+        return User(name: "John Doe", id: "123")
+    }
+}
+
+struct User {
+    let name: String
+    let id: String
+}
+
+// MARK: - Complex Weak Self Example with Multiple Closures
+
+class ChatManager {
+    private var messageTimer: Timer?
+    private var connectionTimer: Timer?
+    
+    func startChat() {
+        // Multiple timers requiring weak self
+        messageTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.checkForNewMessages()
+        }
+        
+        connectionTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { [weak self] _ in
+            self?.maintainConnection()
+        }
+        
+        // Network call with weak self
+        establishConnection { [weak self] success in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                
+                if success {
+                    self.onConnectionEstablished()
+                } else {
+                    self.handleConnectionError()
+                }
+            }
+        }
+    }
+    
+    private func establishConnection(completion: @escaping (Bool) -&gt; Void) {
+        // Simulate connection
+        DispatchQueue.global().asyncAfter(deadline: .now() + 2.0) {
+            completion(true)
+        }
+    }
+    
+    private func checkForNewMessages() {
+        print("Checking for new messages...")
+    }
+    
+    private func maintainConnection() {
+        print("Maintaining connection...")
+    }
+    
+    private func onConnectionEstablished() {
+        print("Connection established successfully")
+    }
+    
+    private func handleConnectionError() {
+        print("Failed to establish connection")
+    }
+    
+    deinit {
+        messageTimer?.invalidate()
+        connectionTimer?.invalidate()
+        print("ChatManager deinitialized")
+    }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>96EC4457-9089-44D7-AA63-E3FCB96414C9</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>snip_weakself_example</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>snip_weakself_example</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

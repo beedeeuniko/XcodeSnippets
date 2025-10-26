@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string></string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import Foundation
+
+// Sample dataset
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+let prices = [19.99, 29.99, 15.50, 42.00, 8.75]
+let names = ["Alice", "Bob", "Charlie", "Diana", "Eve"]
+
+// MARK: - Basic Reductions
+
+// Sum all numbers
+let sum = numbers.reduce(0, +)
+print("Sum: \(sum)")
+
+// Product of all numbers
+let product = numbers.reduce(1, *)
+print("Product: \(product)")
+
+// Find maximum value
+let maxNumber = numbers.reduce(numbers[0]) { max($0, $1) }
+print("Maximum: \(maxNumber)")
+
+// Find minimum value
+let minPrice = prices.reduce(prices[0]) { min($0, $1) }
+print("Minimum price: \(minPrice)")
+
+// MARK: - String Reductions
+
+// Concatenate strings
+let concatenated = names.reduce("") { result, name in
+    result.isEmpty ? name : result + ", " + name
+}
+print("Names: \(concatenated)")
+
+// Create acronym
+let acronym = names.reduce("") { $0 + String($1.first!) }
+print("Acronym: \(acronym)")
+
+// MARK: - Advanced Reductions
+
+// Count elements meeting condition
+let evenCount = numbers.reduce(0) { count, number in
+    number % 2 == 0 ? count + 1 : count
+}
+print("Even numbers count: \(evenCount)")
+
+// Calculate average
+let average = prices.reduce(0, +) / Double(prices.count)
+print("Average price: \(String(format: "%.2f", average))")
+
+// Group by condition (using reduce(into:))
+let grouped = numbers.reduce(into: [String: [Int]]()) { result, number in
+    let key = number % 2 == 0 ? "even" : "odd"
+    result[key, default: []].append(number)
+}
+print("Grouped: \(grouped)")
+
+// MARK: - Custom Data Structure Reduction
+
+struct Person {
+    let name: String
+    let age: Int
+    let salary: Double
+}
+
+let people = [
+    Person(name: "Alice", age: 30, salary: 50000),
+    Person(name: "Bob", age: 25, salary: 45000),
+    Person(name: "Charlie", age: 35, salary: 60000)
+]
+
+// Total salary
+let totalSalary = people.reduce(0) { $0 + $1.salary }
+print("Total salary: $\(totalSalary)")
+
+// Find oldest person
+let oldestPerson = people.reduce(people[0]) { $0.age &gt; $1.age ? $0 : $1 }
+print("Oldest person: \(oldestPerson.name)")
+
+// Create summary dictionary
+let summary = people.reduce(into: [String: Any]()) { result, person in
+    result["totalAge"] = (result["totalAge"] as? Int ?? 0) + person.age
+    result["count"] = (result["count"] as? Int ?? 0) + 1
+    result["names"] = (result["names"] as? [String] ?? []) + [person.name]
+}
+print("Summary: \(summary)")
+
+// MARK: - Functional Approach with reduce(into:)
+
+// Build frequency map
+let letters = "hello world".compactMap { $0.isLetter ? $0 : nil }
+let frequency = letters.reduce(into: [Character: Int]()) { counts, letter in
+    counts[letter, default: 0] += 1
+}
+print("Letter frequency: \(frequency)")
+
+// Convert array to dictionary
+let keyValuePairs = ["a", "b", "c", "d"]
+let dictionary = keyValuePairs.enumerated().reduce(into: [String: Int]()) { dict, pair in
+    dict[pair.element] = pair.offset
+}
+print("Dictionary: \(dictionary)")</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>1CDD97C9-CF04-48FD-861F-F4B5833A8DAC</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>snip_reduce_examples</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_block_weakself_strongself_pattern</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Weak-strong self pattern in block
+__weak typeof(self) weakSelf = self;
+[self performActionWithCompletion:^{
+    __strong typeof(weakSelf) strongSelf = weakSelf;
+    if (!strongSelf) {
+        return;
+    }
+    
+    // Use strongSelf here
+    [strongSelf doSomething];
+}];</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>A7B8C9D0-E1F2-4A5B-3C4D-7E8F9A0B1C2D</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Weak-strong self pattern to avoid retain cycles</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Block Weak-Strong Self Pattern</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_validation_pattern</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Input validation with error reporting
+- (BOOL)validateInput:(id)input error:(NSError **)error {
+    // Check for nil
+    if (input == nil) {
+        if (error != NULL) {
+            *error = [NSError errorWithDomain:@"com.yourapp.ValidationDomain"
+                                         code:1001
+                                     userInfo:@{NSLocalizedDescriptionKey: @"Input cannot be nil"}];
+        }
+        return NO;
+    }
+    
+    // Type check
+    if (![input isKindOfClass:[NSString class]]) {
+        if (error != NULL) {
+            *error = [NSError errorWithDomain:@"com.yourapp.ValidationDomain"
+                                         code:1002
+                                     userInfo:@{NSLocalizedDescriptionKey: @"Input must be a string"}];
+        }
+        return NO;
+    }
+    
+    // Content validation
+    NSString *stringInput = (NSString *)input;
+    if (stringInput.length == 0) {
+        if (error != NULL) {
+            *error = [NSError errorWithDomain:@"com.yourapp.ValidationDomain"
+                                         code:1003
+                                     userInfo:@{NSLocalizedDescriptionKey: @"Input cannot be empty"}];
+        }
+        return NO;
+    }
+    
+    return YES;
+}

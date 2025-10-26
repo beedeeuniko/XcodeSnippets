@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_block_syntax_howto</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>/*
+ How Do I Declare A Block in Objective-C?
+ As a local variable:
+ returnType (^blockName)(parameterTypes) = ^returnType(parameters) {...};
+ 
+ As a property:
+ @property (nonatomic, copy, nullability) returnType (^blockName)(parameterTypes);
+ 
+ As a method parameter:
+ - (void)someMethodThatTakesABlock:(returnType (^nullability)(parameterTypes))blockName;
+ 
+ As an argument to a method call:
+ [someObject someMethodThatTakesABlock:^returnType (parameters) {...}];
+ 
+ As a parameter to a C function:
+ void SomeFunctionThatTakesABlock(returnType (^blockName)(parameterTypes));
+ 
+ As a typedef:
+ typedef returnType (^TypeName)(parameterTypes);
+ TypeName blockName = ^returnType(parameters) {...};
+ 
+ 
+ Here are simple examples of Objective-C block syntax:
+
+ ## Basic Block Declaration and Usage
+
+ ```objc
+ // Simple block with no parameters or return value
+ void (^simpleBlock)(void) = ^{
+     NSLog(@"Hello from block");
+ };
+ simpleBlock();
+
+ // Block that takes parameters
+ void (^greetBlock)(NSString *) = ^(NSString *name) {
+     NSLog(@"Hello, %@!", name);
+ };
+ greetBlock(@"Alice");
+
+ // Block that returns a value
+ int (^addBlock)(int, int) = ^int(int a, int b) {
+     return a + b;
+ };
+ int result = addBlock(5, 3); // result = 8
+ ```
+
+ ## Blocks as Method Parameters
+
+ ```objc
+ // Sorting an array with a block
+ NSArray *numbers = @[@5, @2, @8, @1];
+ NSArray *sorted = [numbers sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+     return [a compare:b];
+ }];
+
+ // Enumerating with a block
+ [numbers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+     NSLog(@"Item %lu: %@", idx, obj);
+ }];
+ ```
+
+ ## Common Patterns
+
+ ```objc
+ // Completion handler (common in async operations)
+ - (void)fetchDataWithCompletion:(void (^)(NSData *data, NSError *error))completion {
+     // Do async work...
+     completion(data, nil);
+ }
+
+ // Typedef for cleaner syntax
+ typedef void (^CompletionBlock)(BOOL success);
+
+ CompletionBlock myCompletion = ^(BOOL success) {
+     NSLog(@"Done: %d", success);
+ };
+ ```
+
+ ## Capturing Variables
+
+ ```objc
+ int multiplier = 3;
+ int (^multiplyBlock)(int) = ^(int num) {
+     return num * multiplier; // captures 'multiplier'
+ };
+
+ // Use __block to modify captured variables
+ __block int counter = 0;
+ void (^incrementBlock)(void) = ^{
+     counter++; // can modify counter
+ };
+ ```
+
+ The syntax reads as: `returnType (^blockName)(parameterTypes) = ^returnType(parameters) { body };`
+ 
+ */</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>C47151EE-DE89-4CA3-897E-C2859FC030D5</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>snip_block_syntax_howto</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>snip_block_syntax_howto</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

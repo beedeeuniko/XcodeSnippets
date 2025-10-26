@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_block_typedef_success_failure</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Success and failure block typedefs
+typedef void (^SuccessBlock)(id _Nullable result);
+typedef void (^FailureBlock)(NSError * _Nonnull error);</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>C3D4E5F6-A7B8-4C5D-9E0F-3A4B5C6D7E8F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Separate success and failure block typedefs</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Block Typedef - Success Failure</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

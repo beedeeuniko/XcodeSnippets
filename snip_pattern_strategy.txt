@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_pattern_strategy</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Strategy pattern for interchangeable algorithms
+
+// Strategy protocol
+@protocol SortStrategy <NSObject>
+- (NSArray *)sortArray:(NSArray *)array;
+@end
+
+// Concrete strategy A
+@interface BubbleSortStrategy : NSObject <SortStrategy>
+@end
+
+@implementation BubbleSortStrategy
+- (NSArray *)sortArray:(NSArray *)array {
+    // Bubble sort implementation
+    return [array sortedArrayUsingSelector:@selector(compare:)];
+}
+@end
+
+// Concrete strategy B
+@interface QuickSortStrategy : NSObject <SortStrategy>
+@end
+
+@implementation QuickSortStrategy
+- (NSArray *)sortArray:(NSArray *)array {
+    // Quick sort implementation
+    return [array sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj1 compare:obj2];
+    }];
+}
+@end
+
+// Context class
+@interface Sorter : NSObject
+@property (nonatomic, strong) id<SortStrategy> strategy;
+- (NSArray *)sortArray:(NSArray *)array;
+@end
+
+@implementation Sorter
+- (NSArray *)sortArray:(NSArray *)array {
+    return [self.strategy sortArray:array];
+}
+@end
+
+// Usage:
+// Sorter *sorter = [[Sorter alloc] init];
+// sorter.strategy = [[BubbleSortStrategy alloc] init];
+// NSArray *sorted = [sorter sortArray:unsortedArray];

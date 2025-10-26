@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_pattern_command</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Command pattern for encapsulating actions
+
+// Command protocol
+@protocol Command <NSObject>
+- (void)execute;
+- (void)undo;
+@end
+
+// Concrete command
+@interface SaveCommand : NSObject <Command>
+@property (nonatomic, strong) id receiver;
+@property (nonatomic, strong) id data;
+@end
+
+@implementation SaveCommand
+
+- (instancetype)initWithReceiver:(id)receiver data:(id)data {
+    self = [super init];
+    if (self) {
+        _receiver = receiver;
+        _data = data;
+    }
+    return self;
+}
+
+- (void)execute {
+    [self.receiver saveData:self.data];
+}
+
+- (void)undo {
+    [self.receiver deleteData:self.data];
+}
+
+@end
+
+// Invoker
+@interface CommandInvoker : NSObject
+@property (nonatomic, strong) NSMutableArray<id<Command>> *commandHistory;
+- (void)executeCommand:(id<Command>)command;
+- (void)undoLastCommand;
+@end
+
+@implementation CommandInvoker
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _commandHistory = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (void)executeCommand:(id<Command>)command {
+    [command execute];
+    [self.commandHistory addObject:command];
+}
+
+- (void)undoLastCommand {
+    if (self.commandHistory.count > 0) {
+        id<Command> lastCommand = [self.commandHistory lastObject];
+        [lastCommand undo];
+        [self.commandHistory removeLastObject];
+    }
+}
+
+@end

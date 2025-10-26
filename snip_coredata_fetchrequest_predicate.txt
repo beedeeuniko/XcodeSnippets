@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_coredata_fetchrequest_predicate</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Fetch request with predicate
+NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+NSEntityDescription *entity = [NSEntityDescription entityForName:@"EntityName" inManagedObjectContext:self.managedObjectContext];
+[fetchRequest setEntity:entity];
+
+// Simple predicate
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", @"John"];
+[fetchRequest setPredicate:predicate];
+
+// Compound predicate example
+// NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"age > %d", 18];
+// NSPredicate *predicate2 = [NSPredicate predicateWithFormat:@"isActive == YES"];
+// NSPredicate *compoundPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate1, predicate2]];
+// [fetchRequest setPredicate:compoundPredicate];
+
+NSError *error = nil;
+NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+if (error) {
+    NSLog(@"Fetch error: %@", error.localizedDescription);
+} else {
+    NSLog(@"Found %lu matching objects", (unsigned long)results.count);
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B6C7D8E9-F0A1-4B5C-2D3E-6F7A8B9C0D1E</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Fetch request with NSPredicate for filtering results</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Core Data Fetch Request Predicate</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

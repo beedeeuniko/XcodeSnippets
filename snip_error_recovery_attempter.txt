@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_recovery_attempter</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Error with recovery options
+@interface ErrorRecoveryAttempter : NSObject
+@end
+
+@implementation ErrorRecoveryAttempter
+
+- (BOOL)attemptRecoveryFromError:(NSError *)error 
+                     optionIndex:(NSUInteger)recoveryOptionIndex {
+    switch (recoveryOptionIndex) {
+        case 0: // Retry
+            return [self retryOperation];
+        case 1: // Use default
+            return [self useDefaultValue];
+        case 2: // Cancel
+            return NO;
+        default:
+            return NO;
+    }
+}
+
+@end
+
+// Create error with recovery options
+- (NSError *)createRecoverableError {
+    ErrorRecoveryAttempter *attempter = [[ErrorRecoveryAttempter alloc] init];
+    
+    NSDictionary *userInfo = @{
+        NSLocalizedDescriptionKey: @"Operation failed",
+        NSLocalizedRecoverySuggestionErrorKey: @"You can retry or use default",
+        NSLocalizedRecoveryOptionsErrorKey: @[@"Retry", @"Use Default", @"Cancel"],
+        NSRecoveryAttempterErrorKey: attempter
+    };
+    
+    return [NSError errorWithDomain:@"com.yourapp.ErrorDomain"
+                               code:1001
+                           userInfo:userInfo];
+}

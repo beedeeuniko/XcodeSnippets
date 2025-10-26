@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_nserror_creation</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Create NSError with custom domain and user info
+NSString *domain = @"com.yourcompany.yourapp.ErrorDomain";
+NSInteger code = 1001;
+NSDictionary *userInfo = @{
+    NSLocalizedDescriptionKey: @"A user-friendly error description",
+    NSLocalizedFailureReasonErrorKey: @"The reason why it failed",
+    NSLocalizedRecoverySuggestionErrorKey: @"Try doing X to fix this",
+    NSUnderlyingErrorKey: underlyingError // Optional: wrap another error
+};
+
+NSError *error = [NSError errorWithDomain:domain code:code userInfo:userInfo];

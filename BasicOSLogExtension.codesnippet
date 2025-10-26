@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>s_BasicOSLogExtension</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>extension OSLog {
+  private static let bundleID = Bundle.main.bundleIdentifier ?? ""
+  static let lifecycle = OSLog(subsystem: bundleID, category: "Lifecycle")
+  static let pointsOfInterest = OSLog(subsystem: bundleID, category: .pointsOfInterest)
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>D5C1FD38-90AF-4694-A11A-49401C4361BB</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Basic OSLog variables extension</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Basic OSLog Extension</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

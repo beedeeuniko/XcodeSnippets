@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_block_completion_handler_async</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string> // Completion handler (common in async operations)
+ - (void)fetchDataWithCompletion:(void (^)(NSData *data, NSError *error))completion {
+     // Do async work...
+     completion(data, nil);
+ }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>F1C88059-8DBA-43D5-A9B8-9ECCAB7EEF05</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>snip_block_completion_handler_async</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>snip_block_completion_handler_async</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

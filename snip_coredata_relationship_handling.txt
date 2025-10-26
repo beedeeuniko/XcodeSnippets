@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_coredata_relationship_handling</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Core Data relationship handling
+
+// One-to-one relationship
+NSManagedObject *parent = [NSEntityDescription insertNewObjectForEntityForName:@"Parent" inManagedObjectContext:self.managedObjectContext];
+NSManagedObject *child = [NSEntityDescription insertNewObjectForEntityForName:@"Child" inManagedObjectContext:self.managedObjectContext];
+[parent setValue:child forKey:@"childRelationship"];
+
+// One-to-many relationship (add to NSSet)
+NSManagedObject *department = [NSEntityDescription insertNewObjectForEntityForName:@"Department" inManagedObjectContext:self.managedObjectContext];
+NSManagedObject *employee = [NSEntityDescription insertNewObjectForEntityForName:@"Employee" inManagedObjectContext:self.managedObjectContext];
+
+NSMutableSet *employees = [department mutableSetValueForKey:@"employees"];
+[employees addObject:employee];
+
+// Or using KVC
+// [[department mutableSetValueForKey:@"employees"] addObject:employee];
+
+// Access related objects
+NSSet *relatedEmployees = [department valueForKey:@"employees"];
+for (NSManagedObject *emp in relatedEmployees) {
+    NSLog(@"Employee: %@", [emp valueForKey:@"name"]);
+}
+
+// Save context
+NSError *error = nil;
+if (![self.managedObjectContext save:&error]) {
+    NSLog(@"Error: %@", error);
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E9F0A1B2-C3D4-4E5F-5A6B-9C0D1E2F3A4B</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Handling Core Data relationships between entities</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Core Data Relationship Handling</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_net_urlsession_background</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Background URLSession for downloads/uploads that continue when app is suspended
+
+// Create background session configuration
+NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"com.yourapp.background"];
+configuration.sessionSendsLaunchEvents = YES;
+
+// Create session
+@property (strong, nonatomic) NSURLSession *backgroundSession;
+
+self.backgroundSession = [NSURLSession sessionWithConfiguration:configuration 
+                                                       delegate:self 
+                                                  delegateQueue:nil];
+
+// Start download task
+NSURL *url = [NSURL URLWithString:@"https://example.com/large-file.zip"];
+NSURLSessionDownloadTask *downloadTask = [self.backgroundSession downloadTaskWithURL:url];
+[downloadTask resume];
+
+// Implement delegate methods
+- (void)URLSession:(NSURLSession *)session 
+      downloadTask:(NSURLSessionDownloadTask *)downloadTask 
+didFinishDownloadingToURL:(NSURL *)location {
+    // Move file to permanent location
+    NSLog(@"Download finished: %@", location);
+}
+
+- (void)URLSession:(NSURLSession *)session 
+      downloadTask:(NSURLSessionDownloadTask *)downloadTask 
+      didWriteData:(int64_t)bytesWritten 
+ totalBytesWritten:(int64_t)totalBytesWritten 
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
+    CGFloat progress = (CGFloat)totalBytesWritten / (CGFloat)totalBytesExpectedToWrite;
+    NSLog(@"Download progress: %.2f%%", progress * 100);
+}
+
+- (void)URLSessionDidFinishEventsForBackgroundURLSession:(NSURLSession *)session {
+    NSLog(@"Background session finished");
+}

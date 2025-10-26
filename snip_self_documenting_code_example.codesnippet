@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_self_documenting_code_example</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>class Friend {
+    var name: String = ""
+}
+
+class FriendsManager {
+    private var friendsByName = [String : Friend]() //make clear that the key is a name and the value is a Friend object
+
+    func friend(named name: String) -&gt; Friend? {
+        return friendsByName[name]
+    }
+}
+
+struct File {
+    typealias ByteCount = Int // use an alias to describe the unit we mean here
+
+    let name: String
+    let size: ByteCount
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>CE99885D-4176-4D6B-8782-40CA335A81F9</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Self Documenting Code</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

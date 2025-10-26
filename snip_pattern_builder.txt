@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_pattern_builder</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Builder pattern for complex object construction
+
+@interface ObjectBuilder : NSObject
+
+@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *description;
+@property (nonatomic, assign) NSInteger value;
+@property (nonatomic, strong) NSDictionary *metadata;
+
+- (instancetype)withName:(NSString *)name;
+- (instancetype)withDescription:(NSString *)description;
+- (instancetype)withValue:(NSInteger)value;
+- (instancetype)withMetadata:(NSDictionary *)metadata;
+- (CustomObject *)build;
+
+@end
+
+@implementation ObjectBuilder
+
+- (instancetype)withName:(NSString *)name {
+    self.name = name;
+    return self;
+}
+
+- (instancetype)withDescription:(NSString *)description {
+    self.description = description;
+    return self;
+}
+
+- (instancetype)withValue:(NSInteger)value {
+    self.value = value;
+    return self;
+}
+
+- (instancetype)withMetadata:(NSDictionary *)metadata {
+    self.metadata = metadata;
+    return self;
+}
+
+- (CustomObject *)build {
+    CustomObject *object = [[CustomObject alloc] init];
+    object.name = self.name;
+    object.description = self.description;
+    object.value = self.value;
+    object.metadata = self.metadata;
+    return object;
+}
+
+@end
+
+// Usage:
+// CustomObject *obj = [[[[[ObjectBuilder alloc] init] 
+//     withName:@"Test"] 
+//     withValue:42] 
+//     build];

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_generics_example</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>//Generic type parameters should be
+//descriptive, upper camel case names. When a
+//type name doesn't have a meaningful
+//relationship or role, use a traditional
+//single uppercase letter such as T, U, or V.
+struct Stack&lt;Int&gt; {  }
+func write&lt;Target: OutputStream&gt;(to target: inout Target){
+    //
+}
+func swap&lt;T&gt;(_ a: inout T, _ b: inout T){
+    //
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>BC268549-DEA8-493F-8B95-D0E17643F88F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Generics Style Example</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Generics Style Example</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

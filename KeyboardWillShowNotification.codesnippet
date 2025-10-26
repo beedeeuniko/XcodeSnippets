@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>s_keyboardWillShowNotificationHandler</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>CodeBlock</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>  NotificationCenter.default.addObserver(
+    self,
+    selector: #selector(keyboardWillShowNotification(_:)),
+    name: UIResponder.keyboardWillShowNotification,
+    object: nil
+  )
+  
+  
+  @objc func keyboardWillShowNotification(_ noti: Notification) {
+    guard let userInfo = noti.userInfo,
+      let frame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+      let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval
+      else { return }
+  }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>D96811B7-D1EA-4896-AB04-A54C69F524CA</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Keyboard will show notification handler snippet</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Keyboard Will Show Notification Handler</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

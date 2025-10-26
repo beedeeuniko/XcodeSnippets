@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_nested_function_example</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>func returnFifteen(_ someNumber:Int) -&gt; Int { // host function
+
+    func addResidue() -&gt; Int { // nested function
+        return 15-someNumber
+    }
+
+    if someNumber &lt; 15 {
+        return someNumber + addResidue()
+    } else {
+        return 15;
+    }
+}
+print(returnFifteen(0))
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>D5B049E0-34A2-449E-AA0D-793C79C2231D</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>function can host nested functions</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Nested Funtion</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_coredata_fetchrequest_sort_descriptors</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Fetch request with sort descriptors
+NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+NSEntityDescription *entity = [NSEntityDescription entityForName:@"EntityName" inManagedObjectContext:self.managedObjectContext];
+[fetchRequest setEntity:entity];
+
+// Single sort descriptor
+NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+[fetchRequest setSortDescriptors:@[sortDescriptor]];
+
+// Multiple sort descriptors
+// NSSortDescriptor *sort1 = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
+// NSSortDescriptor *sort2 = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
+// [fetchRequest setSortDescriptors:@[sort1, sort2]];
+
+// Case-insensitive sort
+// NSSortDescriptor *caseInsensitiveSort = [[NSSortDescriptor alloc] initWithKey:@"name" 
+//                                                                      ascending:YES 
+//                                                                       selector:@selector(caseInsensitiveCompare:)];
+
+NSError *error = nil;
+NSArray *results = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+if (!error) {
+    NSLog(@"Fetched %lu sorted objects", (unsigned long)results.count);
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>C7D8E9F0-A1B2-4C5D-3E4F-7A8B9C0D1E2F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Fetch request with NSSortDescriptor for sorting results</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Core Data Fetch Request Sort Descriptors</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

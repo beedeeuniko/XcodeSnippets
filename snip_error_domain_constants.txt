@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_domain_constants</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Error domain and code constants
+
+// In header file (.h)
+extern NSString * const MyAppErrorDomain;
+
+typedef NS_ENUM(NSInteger, MyAppErrorCode) {
+    MyAppErrorCodeUnknown = 0,
+    MyAppErrorCodeInvalidInput = 1001,
+    MyAppErrorCodeNetworkFailure = 1002,
+    MyAppErrorCodeAuthenticationFailed = 1003,
+    MyAppErrorCodeDataCorrupted = 1004,
+    MyAppErrorCodeOperationCancelled = 1005
+};
+
+// In implementation file (.m)
+NSString * const MyAppErrorDomain = @"com.yourcompany.yourapp.ErrorDomain";

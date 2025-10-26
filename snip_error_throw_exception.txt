@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_throw_exception</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Throw/raise exception (use for programmer errors only)
+- (void)methodThatMightThrow {
+    if (invalidCondition) {
+        NSException *exception = [NSException exceptionWithName:NSInvalidArgumentException
+                                                         reason:@"Parameter cannot be nil"
+                                                       userInfo:@{@"parameter": @"username"}];
+        @throw exception;
+        
+        // Or use shorthand:
+        // [NSException raise:NSInvalidArgumentException 
+        //             format:@"Parameter %@ cannot be nil", @"username"];
+    }
+}

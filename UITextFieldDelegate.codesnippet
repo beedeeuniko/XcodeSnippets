@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>s_UITextFieldDelegate</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>TopLevel</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// MARK: - UITextFieldDelegate
+
+extension &lt;#class#&gt;ViewController : UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -&gt; Bool {
+    textField.resignFirstResponder()
+    return true
+  }
+  
+  func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -&gt; Bool {
+    let text = textField.text ?? ""
+    let newText = (text as NSString).replacingCharacters(in: range, with: string)
+    return true
+  }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>0C6B92CA-7D51-47F7-A909-D9EA6B89C312</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetPlatformFamily</key>
+	<string>iphoneos</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>UITextFieldDelegate extension</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UITextFieldDelegate</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

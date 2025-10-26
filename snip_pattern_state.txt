@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_pattern_state</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// State pattern for state-dependent behavior
+
+// State protocol
+@protocol State <NSObject>
+- (void)handleRequest:(id)context;
+@end
+
+// Concrete state A
+@interface IdleState : NSObject <State>
+@end
+
+@implementation IdleState
+- (void)handleRequest:(id)context {
+    NSLog(@"Handling request in Idle state");
+    [context transitionToState:[[ActiveState alloc] init]];
+}
+@end
+
+// Concrete state B
+@interface ActiveState : NSObject <State>
+@end
+
+@implementation ActiveState
+- (void)handleRequest:(id)context {
+    NSLog(@"Handling request in Active state");
+    [context transitionToState:[[CompletedState alloc] init]];
+}
+@end
+
+// Concrete state C
+@interface CompletedState : NSObject <State>
+@end
+
+@implementation CompletedState
+- (void)handleRequest:(id)context {
+    NSLog(@"Handling request in Completed state");
+}
+@end
+
+// Context
+@interface StateMachine : NSObject
+@property (nonatomic, strong) id<State> currentState;
+- (void)request;
+- (void)transitionToState:(id<State>)state;
+@end
+
+@implementation StateMachine
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _currentState = [[IdleState alloc] init];
+    }
+    return self;
+}
+
+- (void)request {
+    [self.currentState handleRequest:self];
+}
+
+- (void)transitionToState:(id<State>)state {
+    self.currentState = state;
+}
+
+@end

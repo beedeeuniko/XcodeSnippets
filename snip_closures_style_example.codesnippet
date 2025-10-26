@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_closures_style_example</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>let nameList = ["Doo","Little"]
+var reversedNames = nameList.sorted(by: { $0 &gt; $1 } )
+reversedNames = nameList.sorted(by: { s1, s2 in return s1 &gt; s2 } )
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>452A6EF9-9BAA-43AC-8F11-F11FC523AA9F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>closures</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Closures</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

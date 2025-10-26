@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_net_urlsession_download_task</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// NSURLSession download task
+NSURL *url = [NSURL URLWithString:@"https://example.com/file.pdf"];
+
+NSURLSessionDownloadTask *downloadTask = [[NSURLSession sharedSession] downloadTaskWithURL:url 
+                                                                         completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+    if (error) {
+        NSLog(@"Download error: %@", error.localizedDescription);
+        return;
+    }
+    
+    // Move file from temporary location to permanent location
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *documentsURL = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+    NSURL *destinationURL = [documentsURL URLByAppendingPathComponent:@"downloaded_file.pdf"];
+    
+    NSError *moveError = nil;
+    [fileManager removeItemAtURL:destinationURL error:nil]; // Remove if exists
+    BOOL success = [fileManager moveItemAtURL:location toURL:destinationURL error:&moveError];
+    
+    if (success) {
+        NSLog(@"File downloaded to: %@", destinationURL.path);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Update UI
+        });
+    } else {
+        NSLog(@"Move error: %@", moveError);
+    }
+}];
+
+[downloadTask resume];

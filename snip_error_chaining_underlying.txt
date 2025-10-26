@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_chaining_underlying</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Error chaining with underlying error
+- (BOOL)performHighLevelOperationWithError:(NSError **)error {
+    NSError *underlyingError = nil;
+    BOOL success = [self performLowLevelOperation:&underlyingError];
+    
+    if (!success) {
+        if (error != NULL) {
+            // Wrap the underlying error with more context
+            NSDictionary *userInfo = @{
+                NSLocalizedDescriptionKey: @"High-level operation failed",
+                NSLocalizedFailureReasonErrorKey: @"Low-level operation encountered an error",
+                NSUnderlyingErrorKey: underlyingError // Preserve original error
+            };
+            
+            *error = [NSError errorWithDomain:@"com.yourapp.HighLevelDomain"
+                                         code:2001
+                                     userInfo:userInfo];
+        }
+        return NO;
+    }
+    
+    return YES;
+}
+
+// Access underlying error chain:
+// NSError *currentError = topLevelError;
+// while (currentError) {
+//     NSLog(@"Error: %@", currentError.localizedDescription);
+//     currentError = currentError.userInfo[NSUnderlyingErrorKey];
+// }

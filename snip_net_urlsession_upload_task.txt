@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_net_urlsession_upload_task</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// NSURLSession upload task
+NSURL *url = [NSURL URLWithString:@"https://api.example.com/upload"];
+NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+[request setHTTPMethod:@"POST"];
+
+// Prepare data to upload
+NSData *uploadData = [@"File content" dataUsingEncoding:NSUTF8StringEncoding];
+
+NSURLSessionUploadTask *uploadTask = [[NSURLSession sharedSession] uploadTaskWithRequest:request 
+                                                                                 fromData:uploadData 
+                                                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    if (error) {
+        NSLog(@"Upload error: %@", error.localizedDescription);
+        return;
+    }
+    
+    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+    NSLog(@"Upload status: %ld", (long)httpResponse.statusCode);
+    
+    if (data) {
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"Response: %@", responseString);
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // Update UI
+    });
+}];
+
+[uploadTask resume];

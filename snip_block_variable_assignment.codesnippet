@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_block_variable_assignment</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Block variable assignment
+void (^myBlock)(NSString *) = ^(NSString *message) {
+    NSLog(@"Message: %@", message);
+};
+
+// Call the block
+myBlock(@"Hello World");</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B8C9D0E1-F2A3-4B5C-4D5E-8F9A0B1C2D3E</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Assign block to variable and call it</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Block Variable Assignment</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

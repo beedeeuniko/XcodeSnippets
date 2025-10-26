@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_block_typedef_completion_handler_data_error</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Completion handler with data and error
+typedef void (^DataCompletionHandler)(NSData * _Nullable data, NSError * _Nullable error);</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B2C3D4E5-F6A7-4B5C-8D9E-2F3A4B5C6D7E</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Completion handler typedef with data and error parameters</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Block Typedef - Data Error Completion Handler</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

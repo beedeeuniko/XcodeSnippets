@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_implicitly_unwrapped_optional</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// impl.unwrapped optional is unwrapped on access,
+// If an implicitly unwrapped optional is nil and you try to access its wrapped value, you’ll trigger a runtime error.
+let assumedString: String! = "An implicitly unwrapped optional string." // always has a value, can still be checked for nil since it is an optional
+let implicitString: String = assumedString // no need for an exclamation mark
+
+
+if assumedString != nil {
+    print(assumedString!)
+}
+if let definiteString = assumedString {
+    print(definiteString)
+}
+// Both print "An implicitly unwrapped optional string."
+
+let nonOptionalString = "you cannot use me in an optional binding since I'm not optional"
+
+//let youCannotAssignNilToMe = nil //'nil' requires a contextual type
+
+//if let thisWillNotWork = nonOptionalString { //Initializer for conditional binding must have Optional type, not 'String'
+//
+//}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>CD388F97-067A-4F73-A57B-D8BF5EDA2AD1</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string></string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Implicitly Unwrapped Optional</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

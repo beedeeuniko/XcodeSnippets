@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_tuple_example</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// "(" and ")" open a tuple, so forget about parentheses for structuring any of your code, damn!
+let someUndescriptiveTuple = ("Hey every", 1, "!")
+print(someUndescriptiveTuple.0, terminator: "")
+print(someUndescriptiveTuple.1, terminator: "")
+print(someUndescriptiveTuple.2)
+
+let descriptiveTuple = (name: "Ben", profession:"renaissance man", salaray:MAXFLOAT)
+print("I'm \(descriptiveTuple.name) and I am a \(descriptiveTuple.profession) with the salaray of \(descriptiveTuple.salaray)")
+
+let(someName, aProfession, aSalary) = descriptiveTuple // decompose tuple to a list of variables or constants
+print(someName)
+print(aProfession)
+print(aSalary)
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E28C82B3-1549-4211-82E1-5A8805841545</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Tuple Example</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Tuples</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

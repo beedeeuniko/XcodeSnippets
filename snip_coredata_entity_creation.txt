@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_coredata_entity_creation</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Create new managed object entity
+NSManagedObjectContext *context = self.managedObjectContext;
+NSEntityDescription *entity = [NSEntityDescription entityForName:@"EntityName" inManagedObjectContext:context];
+NSManagedObject *newObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+
+// Set properties
+[newObject setValue:@"value" forKey:@"propertyName"];
+[newObject setValue:@(123) forKey:@"numberProperty"];
+[newObject setValue:[NSDate date] forKey:@"dateProperty"];
+
+// Save context
+NSError *error = nil;
+if (![context save:&error]) {
+    NSLog(@"Failed to save: %@", error);
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>F4A5B6C7-D8E9-4F5A-0B1C-4D5E6F7A8B9C</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Create new Core Data entity and set properties</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Core Data Entity Creation</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

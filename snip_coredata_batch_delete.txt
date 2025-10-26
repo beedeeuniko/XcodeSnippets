@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_coredata_batch_delete</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Batch delete request (iOS 9+)
+NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"EntityName"];
+
+// Optional: Add predicate to delete specific objects
+NSPredicate *predicate = [NSPredicate predicateWithFormat:@"timestamp < %@", oldDate];
+[fetchRequest setPredicate:predicate];
+
+NSBatchDeleteRequest *deleteRequest = [[NSBatchDeleteRequest alloc] initWithFetchRequest:fetchRequest];
+deleteRequest.resultType = NSBatchDeleteResultTypeCount;
+
+NSError *error = nil;
+NSBatchDeleteResult *result = [self.managedObjectContext executeRequest:deleteRequest error:&error];
+
+if (error) {
+    NSLog(@"Batch delete error: %@", error.localizedDescription);
+} else {
+    NSNumber *deletedCount = result.result;
+    NSLog(@"Deleted %@ objects", deletedCount);
+    
+    // Reset context after batch delete
+    [self.managedObjectContext reset];
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>D8E9F0A1-B2C3-4D5E-4F5A-8B9C0D1E2F3A</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Batch delete request for efficient deletion of multiple objects</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Core Data Batch Delete</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_extension_class_private_interface</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Class extension (private interface) in .m file
+@interface ClassName ()
+
+// Private properties and methods
+@property (nonatomic, strong) NSString *privateProperty;
+
+- (void)privateMethod;
+
+@end
+
+@implementation ClassName
+
+- (void)privateMethod {
+    // Private implementation
+}
+
+@end</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E7F8A9B0-C1D2-4E5F-3A4B-7C8D9E0F1A2B</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Class extension for private interface in implementation file</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Extension Class Private Interface</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

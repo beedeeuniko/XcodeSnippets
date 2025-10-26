@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_block_method_parameter_completion</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Method with completion block parameter
+- (void)performActionWithCompletion:(void (^)(BOOL success, NSError * _Nullable error))completion {
+    // Perform work
+    if (completion) {
+        completion(YES, nil);
+    }
+}</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E5F6A7B8-C9D0-4E5F-1A2B-5C6D7E8F9A0B</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Method with completion block as parameter</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Block Method Parameter - Completion</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

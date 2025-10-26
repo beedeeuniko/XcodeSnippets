@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>s_SetupBasicUIButtonForTesting</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>CodeBlock</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>    let button = UIButton(type: .system)
+    button.frame = CGRect(x: 50, y: 100, width: 100, height: 50)
+    button.setTitle("Button", for: .normal)
+    button.addTarget(self, action: #selector(buttonDidTap(_:)), for: .touchUpInside)
+    view.addSubview(button)
+    @objc private func buttonDidTap(_ button: UIButton) {
+      
+    }</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>722A4087-A492-42AF-9F3E-42E818417DE1</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>Basic UIButton Code Snippet For Simple Testing</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Basic UIButton Code For Testing</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

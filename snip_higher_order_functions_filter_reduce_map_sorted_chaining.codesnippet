@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_higher_order_functions_filter_reduce_map_sorted_chaining</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>import Foundation
+
+// MARK: - Sample Data Models
+
+struct Product {
+    let name: String
+    let price: Double
+    let category: String
+    let rating: Double
+    let inStock: Bool
+}
+
+struct Employee {
+    let name: String
+    let age: Int
+    let department: String
+    let salary: Double
+    let yearsOfExperience: Int
+}
+
+// Sample data
+let products = [
+    Product(name: "iPhone 14", price: 999.0, category: "Electronics", rating: 4.8, inStock: true),
+    Product(name: "MacBook Pro", price: 2399.0, category: "Electronics", rating: 4.9, inStock: false),
+    Product(name: "Coffee Mug", price: 15.0, category: "Home", rating: 4.2, inStock: true),
+    Product(name: "Desk Chair", price: 299.0, category: "Furniture", rating: 4.1, inStock: true),
+    Product(name: "Headphones", price: 199.0, category: "Electronics", rating: 4.7, inStock: true),
+    Product(name: "Book Shelf", price: 150.0, category: "Furniture", rating: 4.0, inStock: false)
+]
+
+let employees = [
+    Employee(name: "Alice", age: 28, department: "Engineering", salary: 85000, yearsOfExperience: 5),
+    Employee(name: "Bob", age: 35, department: "Marketing", salary: 65000, yearsOfExperience: 8),
+    Employee(name: "Charlie", age: 29, department: "Engineering", salary: 92000, yearsOfExperience: 6),
+    Employee(name: "Diana", age: 42, department: "Sales", salary: 78000, yearsOfExperience: 12),
+    Employee(name: "Eve", age: 26, department: "Design", salary: 72000, yearsOfExperience: 3)
+]
+
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+let words = ["swift", "ios", "development", "apple", "xcode", "programming"]
+
+// MARK: - 1. MAP - Transform Elements
+
+class MapExamples {
+    static func basicTransformations() {
+        print("=== MAP Examples ===")
+        
+        // Transform numbers to their squares
+        let squares = numbers.map { $0 * $0 }
+        print("Squares: \(squares)")
+        
+        // Transform strings to uppercase
+        let uppercased = words.map { $0.uppercased() }
+        print("Uppercased: \(uppercased)")
+        
+        // Extract specific properties from objects
+        let productNames = products.map { $0.name }
+        print("Product names: \(productNames)")
+        
+        // Transform with calculation
+        let pricesWithTax = products.map { $0.price * 1.08 } // 8% tax
+        print("Prices with tax: \(pricesWithTax.map { String(format: "%.2f", $0) })")
+        
+        // Create formatted strings
+        let employeeInfo = employees.map { "\($0.name) - \($0.department)" }
+        print("Employee info: \(employeeInfo)")
+        
+        // Transform to different type
+        let priceStrings = products.map { "Price: $\(String(format: "%.2f", $0.price))" }
+        print("Formatted prices: \(priceStrings)")
+    }
+    
+    static func advancedMapping() {
+        print("\n=== Advanced MAP ===")
+        
+        // Nested mapping - 2D array
+        let matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        let doubledMatrix = matrix.map { row in
+            row.map { $0 * 2 }
+        }
+        print("Doubled matrix: \(doubledMatrix)")
+        
+        // Map with index using enumerated()
+        let indexedWords = words.enumerated().map { index, word in
+            "\(index + 1). \(word)"
+        }
+        print("Indexed words: \(indexedWords)")
+        
+        // Transform dictionary values
+        let scores = ["Alice": 85, "Bob": 92, "Charlie": 78]
+        let letterGrades = scores.mapValues { score in
+            switch score {
+            case 90...100: return "A"
+            case 80...89: return "B"
+            case 70...79: return "C"
+            default: return "F"
+            }
+        }
+        print("Letter grades: \(letterGrades)")
+    }
+}
+
+// MARK: - 2. FILTER - Select Elements
+
+class FilterExamples {
+    static func basicFiltering() {
+        print("\n=== FILTER Examples ===")
+        
+        // Filter even numbers
+        let evenNumbers = numbers.filter { $0 % 2 == 0 }
+        print("Even numbers: \(evenNumbers)")
+        
+        // Filter by string length
+        let longWords = words.filter { $0.count &gt; 5 }
+        print("Long words: \(longWords)")
+        
+        // Filter products in stock
+        let availableProducts = products.filter { $0.inStock }
+        print("Available products: \(availableProducts.map { $0.name })")
+        
+        // Filter by price range
+        let affordableProducts = products.filter { $0.price &lt; 200 }
+        print("Affordable products: \(affordableProducts.map { "\($0.name): $\($0.price)" })")
+        
+        // Filter employees by department
+        let engineers = employees.filter { $0.department == "Engineering" }
+        print("Engineers: \(engineers.map { $0.name })")
+        
+        // Multiple conditions
+        let seniorHighPaidEmployees = employees.filter { $0.age &gt; 30 &amp;&amp; $0.salary &gt; 70000 }
+        print("Senior high-paid employees: \(seniorHighPaidEmployees.map { $0.name })")
+    }
+    
+    static func advancedFiltering() {
+        print("\n=== Advanced FILTER ===")
+        
+        // Filter with complex conditions
+        let premiumElectronics = products.filter { product in
+            product.category == "Electronics" &amp;&amp;
+            product.price &gt; 500 &amp;&amp;
+            product.rating &gt; 4.5
+        }
+        print("Premium electronics: \(premiumElectronics.map { $0.name })")
+        
+        // Filter using contains
+        let techWords = words.filter { $0.contains("s") }
+        print("Words containing 's': \(techWords)")
+        
+        // Filter by index
+        let evenIndexProducts = products.enumerated().filter { index, _ in
+            index % 2 == 0
+        }.map { $0.element }
+        print("Even index products: \(evenIndexProducts.map { $0.name })")
+        
+        // Filter and unwrap optionals (using compactMap)
+        let numberStrings = ["1", "2", "abc", "4", "xyz", "6"]
+        let validNumbers = numberStrings.compactMap { Int($0) }
+        print("Valid numbers from strings: \(validNumbers)")
+    }
+}
+
+// MARK: - 3. REDUCE - Combine Elements
+
+class ReduceExamples {
+    static func basicReduction() {
+        print("\n=== REDUCE Examples ===")
+        
+        // Sum all numbers
+        let sum = numbers.reduce(0, +)
+        print("Sum of numbers: \(sum)")
+        
+        // Product of all numbers
+        let product = numbers.reduce(1, *)
+        print("Product of numbers: \(product)")
+        
+        // Concatenate strings
+        let sentence = words.reduce("") { result, word in
+            result.isEmpty ? word : result + " " + word
+        }
+        print("Sentence: \(sentence)")
+        
+        // Find maximum value
+        let maxPrice = products.reduce(0) { max($0, $1.price) }
+        print("Max price: $\(maxPrice)")
+        
+        // Calculate total inventory value
+        let totalValue = products.reduce(0.0) { total, product in
+            total + (product.inStock ? product.price : 0)
+        }
+        print("Total inventory value: $\(String(format: "%.2f", totalValue))")
+        
+        // Count employees by department
+        let departmentCounts = employees.reduce(into: [String: Int]()) { counts, employee in
+            counts[employee.department, default: 0] += 1
+        }
+        print("Department counts: \(departmentCounts)")
+    }
+    
+    static func advancedReduction() {
+        print("\n=== Advanced REDUCE ===")
+        
+        // Build complex data structure
+        let employeesByDepartment = employees.reduce(into: [String: [Employee]]()) { result, employee in
+            result[employee.department, default: []].append(employee)
+        }
+        print("Employees by department:")
+        employeesByDepartment.forEach { dept, emps in
+            print("  \(dept): \(emps.map { $0.name }.joined(separator: ", "))")
+        }
+        
+        // Calculate statistics
+        let salaryStats = employees.reduce(into: (total: 0.0, min: Double.infinity, max: 0.0, count: 0)) { stats, employee in
+            stats.total += employee.salary
+            stats.min = min(stats.min, employee.salary)
+            stats.max = max(stats.max, employee.salary)
+            stats.count += 1
+        }
+        let avgSalary = salaryStats.total / Double(salaryStats.count)
+        print("Salary stats - Min: $\(salaryStats.min), Max: $\(salaryStats.max), Avg: $\(String(format: "%.0f", avgSalary))")
+        
+        // Create frequency map
+        let wordLengths = words.map { $0.count }
+        let lengthFrequency = wordLengths.reduce(into: [Int: Int]()) { freq, length in
+            freq[length, default: 0] += 1
+        }
+        print("Word length frequency: \(lengthFrequency)")
+        
+        // Build a custom string format
+        let productCatalog = products.reduce(into: "") { catalog, product in
+            let status = product.inStock ? "✅" : "❌"
+            let stars = String(repeating: "⭐", count: Int(product.rating))
+            catalog += "\(status) \(product.name) - $\(product.price) \(stars)\n"
+        }
+        print("Product catalog:\n\(productCatalog)")
+    }
+}
+
+// MARK: - 4. SORTED - Order Elements
+
+class SortedExamples {
+    static func basicSorting() {
+        print("=== SORTED Examples ===")
+        
+        // Sort numbers ascending
+        let sortedNumbers = numbers.sorted()
+        print("Sorted numbers: \(sortedNumbers)")
+        
+        // Sort numbers descending
+        let descendingNumbers = numbers.sorted(by: &gt;)
+        print("Descending numbers: \(descendingNumbers)")
+        
+        // Sort strings alphabetically
+        let sortedWords = words.sorted()
+        print("Sorted words: \(sortedWords)")
+        
+        // Sort by string length
+        let wordsByLength = words.sorted { $0.count &lt; $1.count }
+        print("Words by length: \(wordsByLength)")
+        
+        // Sort products by price
+        let productsByPrice = products.sorted { $0.price &lt; $1.price }
+        print("Products by price: \(productsByPrice.map { "\($0.name): $\($0.price)" })")
+        
+        // Sort employees by age
+        let employeesByAge = employees.sorted { $0.age &lt; $1.age }
+        print("Employees by age: \(employeesByAge.map { "\($0.name) (\($0.age))" })")
+    }
+    
+    static func advancedSorting() {
+        print("\n=== Advanced SORTED ===")
+        
+        // Multiple sort criteria
+        let sortedEmployees = employees.sorted { emp1, emp2 in
+            if emp1.department != emp2.department {
+                return emp1.department &lt; emp2.department
+            }
+            return emp1.salary &gt; emp2.salary // Higher salary first within department
+        }
+        print("Employees by department, then salary:")
+        sortedEmployees.forEach { emp in
+            print("  \(emp.department): \(emp.name) - $\(emp.salary)")
+        }
+        
+        // Sort using key path
+        let productsByRating = products.sorted(by: { $0.rating &gt; $1.rating })
+        print("Products by rating: \(productsByRating.map { "\($0.name): \($0.rating)⭐" })")
+        
+        // Custom sorting with complex logic
+        let productsByValue = products.sorted { product1, product2 in
+            let value1 = product1.price * product1.rating
+            let value2 = product2.price * product2.rating
+            return value1 &gt; value2
+        }
+        print("Products by value (price × rating):")
+        productsByValue.forEach { product in
+            let value = product.price * product.rating
+            print("  \(product.name): \(String(format: "%.0f", value))")
+        }
+        
+        // Sort with nil handling
+        let mixedNumbers: [Int?] = [3, nil, 1, 4, nil, 2]
+        let sortedMixed = mixedNumbers.compactMap { $0 }.sorted()
+        print("Sorted non-nil numbers: \(sortedMixed)")
+    }
+}
+
+// MARK: - 5. CHAINING - Combining Operations
+
+class ChainingExamples {
+    static func demonstrateChaining() {
+        print("\n=== CHAINING Examples ===")
+        
+        // Chain map and filter
+        let evenSquares = numbers
+            .filter { $0 % 2 == 0 }    // Keep even numbers
+            .map { $0 * $0 }           // Square them
+            .sorted(by: &gt;)             // Sort descending
+        print("Even squares (desc): \(evenSquares)")
+        
+        // Complex product analysis
+        let topElectronics = products
+            .filter { $0.category == "Electronics" &amp;&amp; $0.inStock }  // Available electronics
+            .sorted { $0.rating &gt; $1.rating }                      // Sort by rating
+            .prefix(2)                                             // Take top 2
+            .map { "\($0.name) (\($0.rating)⭐)" }                // Format names
+        print("Top available electronics: \(Array(topElectronics))")
+        
+        // Employee analysis pipeline
+        let seniorEngineers = employees
+            .filter { $0.department == "Engineering" }             // Engineers only
+            .filter { $0.yearsOfExperience &gt;= 5 }                 // Senior level
+            .sorted { $0.salary &gt; $1.salary }                     // Highest paid first
+            .map { "\($0.name): $\(Int($0.salary/1000))k" }       // Format output
+        print("Senior engineers by salary: \(seniorEngineers)")
+        
+        // Word processing pipeline
+        let processedWords = words
+            .filter { $0.count &gt; 3 }                              // Words longer than 3 chars
+            .map { $0.uppercased() }                              // Convert to uppercase
+            .sorted()                                             // Sort alphabetically
+            .reduce("") { $0.isEmpty ? $1 : $0 + ", " + $1 }     // Join with commas
+        print("Processed words: \(processedWords)")
+        
+        // Advanced data analysis
+        let departmentAnalysis = employees
+            .filter { $0.salary &gt; 70000 }                         // High earners
+            .reduce(into: [String: (count: Int, totalSalary: Double)]()) { result, employee in
+                let current = result[employee.department] ?? (count: 0, totalSalary: 0)
+                result[employee.department] = (
+                    count: current.count + 1,
+                    totalSalary: current.totalSalary + employee.salary
+                )
+            }
+            .mapValues { data in                                  // Calculate averages
+                (count: data.count, avgSalary: data.totalSalary / Double(data.count))
+            }
+            .sorted { $0.value.avgSalary &gt; $1.value.avgSalary }   // Sort by avg salary
+        
+        print("High-earner analysis by department:")
+        departmentAnalysis.forEach { dept, data in
+            print("  \(dept): \(data.count) employees, avg: $\(String(format: "%.0f", data.avgSalary))")
+        }
+    }
+}
+
+// MARK: - Usage Examples
+
+class HigherOrderFunctionsDemo {
+    static func runAllExamples() {
+        MapExamples.basicTransformations()
+        MapExamples.advancedMapping()
+        
+        FilterExamples.basicFiltering()
+        FilterExamples.advancedFiltering()
+        
+        ReduceExamples.basicReduction()
+        ReduceExamples.advancedReduction()
+        
+        SortedExamples.basicSorting()
+        SortedExamples.advancedSorting()
+        
+        ChainingExamples.demonstrateChaining()
+    }
+    
+    // Real-world example: E-commerce product search
+    static func ecommerceExample() {
+        print("\n=== Real-world E-commerce Example ===")
+        
+        func searchProducts(query: String, maxPrice: Double, minRating: Double) -&gt; [String] {
+            return products
+                .filter { $0.name.lowercased().contains(query.lowercased()) }  // Search by name
+                .filter { $0.price &lt;= maxPrice }                               // Price filter
+                .filter { $0.rating &gt;= minRating }                             // Rating filter
+                .filter { $0.inStock }                                         // Only in stock
+                .sorted { $0.rating &gt; $1.rating }                             // Best rated first
+                .map { "\($0.name) - $\($0.price) (\($0.rating)⭐)" }         // Format result
+        }
+        
+        let searchResults = searchProducts(query: "e", maxPrice: 1000, minRating: 4.0)
+        print("Search results for 'e' under $1000 with 4+ rating:")
+        searchResults.forEach { print("  \($0)") }
+    }
+}
+
+// Run the examples
+HigherOrderFunctionsDemo.runAllExamples()
+HigherOrderFunctionsDemo.ecommerceExample()
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>0F802A59-056C-47AA-AE1B-10716C00737A</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>snip_higher_order_functions_filter_reduce_map_sorted_chaining</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>snip_higher_order_functions_filter_reduce_map_sorted_chaining</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

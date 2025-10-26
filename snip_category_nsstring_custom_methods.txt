@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_category_nsstring_custom_methods</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// NSString category with custom helper methods
+@interface NSString (CustomHelpers)
+
+- (BOOL)isValidEmail;
+- (NSString *)trimWhitespace;
+- (BOOL)containsString:(NSString *)substring caseInsensitive:(BOOL)caseInsensitive;
+
+@end
+
+@implementation NSString (CustomHelpers)
+
+- (BOOL)isValidEmail {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [predicate evaluateWithObject:self];
+}
+
+- (NSString *)trimWhitespace {
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+- (BOOL)containsString:(NSString *)substring caseInsensitive:(BOOL)caseInsensitive {
+    NSStringCompareOptions options = caseInsensitive ? NSCaseInsensitiveSearch : 0;
+    return [self rangeOfString:substring options:options].location != NSNotFound;
+}
+
+@end</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>C5D6E7F8-A9B0-4C5D-1E2F-5A6B7C8D9E0F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>NSString category with custom helper methods</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>Category NSString Custom Methods</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

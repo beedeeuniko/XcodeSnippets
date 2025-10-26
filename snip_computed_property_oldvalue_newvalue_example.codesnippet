@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_computed_property_oldvalue_newvalue_example</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>var s:String? {
+    willSet { // or use "willSet(someName)" to use "someName" instead of "newValue"
+        print("New value is \(newValue ?? "Nothing")")
+    }
+    didSet {
+        print("Old value is \(oldValue ?? "Nothing")")
+    }
+}
+</string>
+	<key>IDECodeSnippetIdentifier</key>
+	<string>CE7F339B-7C6A-41FA-A147-3DD79C00F781</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Swift</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>oldValue newValue</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>oldValue newValue</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

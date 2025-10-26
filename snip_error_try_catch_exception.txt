@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_try_catch_exception</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Try-catch block for exception handling (use sparingly)
+@try {
+    // Code that might throw exception
+    [self riskyOperation];
+    
+} @catch (NSException *exception) {
+    NSLog(@"Exception caught: %@", exception.name);
+    NSLog(@"Reason: %@", exception.reason);
+    NSLog(@"User Info: %@", exception.userInfo);
+    
+    // Handle specific exception types
+    if ([exception.name isEqualToString:NSInvalidArgumentException]) {
+        // Handle invalid argument
+    }
+    
+} @finally {
+    // Cleanup code that runs regardless of exception
+    NSLog(@"Cleanup operations");
+}

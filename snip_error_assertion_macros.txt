@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_error_assertion_macros</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Assertion macros for debugging
+
+// NSAssert - terminates in debug builds only
+- (void)processData:(NSData *)data {
+    NSAssert(data != nil, @"Data cannot be nil");
+    NSAssert(data.length > 0, @"Data length must be greater than 0");
+    
+    // Process data...
+}
+
+// NSParameterAssert - checks parameter validity
+- (void)setUsername:(NSString *)username {
+    NSParameterAssert(username != nil);
+    NSParameterAssert(username.length > 0);
+    
+    _username = username;
+}
+
+// NSCAssert - for C functions
+void processValue(int value) {
+    NSCAssert(value > 0, @"Value must be positive");
+}
+
+// Custom assertion that works in release builds
+#define MyAssert(condition, desc, ...) \
+    do { \
+        if (!(condition)) { \
+            NSLog(@"Assertion failed: %@", [NSString stringWithFormat:desc, ##__VA_ARGS__]); \
+        } \
+    } while(0)

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_pattern_adapter</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Adapter pattern to make incompatible interfaces work together
+
+// Target protocol (what client expects)
+@protocol ModernInterface <NSObject>
+- (void)requestData;
+@end
+
+// Legacy class with incompatible interface
+@interface LegacyService : NSObject
+- (void)fetchDataFromLegacySystem;
+@end
+
+@implementation LegacyService
+- (void)fetchDataFromLegacySystem {
+    NSLog(@"Fetching data from legacy system");
+}
+@end
+
+// Adapter class
+@interface LegacyServiceAdapter : NSObject <ModernInterface>
+@property (nonatomic, strong) LegacyService *legacyService;
+@end
+
+@implementation LegacyServiceAdapter
+
+- (instancetype)initWithLegacyService:(LegacyService *)service {
+    self = [super init];
+    if (self) {
+        _legacyService = service;
+    }
+    return self;
+}
+
+- (void)requestData {
+    // Adapt the interface
+    [self.legacyService fetchDataFromLegacySystem];
+}
+
+@end
+
+// Usage:
+// LegacyService *legacy = [[LegacyService alloc] init];
+// id<ModernInterface> adapter = [[LegacyServiceAdapter alloc] initWithLegacyService:legacy];
+// [adapter requestData];
