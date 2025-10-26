@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_gcd_barrier_sync</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Dispatch barrier for thread-safe read/write access
+@interface DataManager : NSObject
+@property (nonatomic, strong) dispatch_queue_t concurrentQueue;
+@property (nonatomic, strong) NSMutableDictionary *data;
+@end
+
+@implementation DataManager
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        _concurrentQueue = dispatch_queue_create("com.yourapp.dataqueue", DISPATCH_QUEUE_CONCURRENT);
+        _data = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
+// Read operation (concurrent)
+- (id)objectForKey:(NSString *)key {
+    __block id result;
+    dispatch_sync(self.concurrentQueue, ^{
+        result = self.data[key];
+    });
+    return result;
+}
+
+// Write operation (exclusive with barrier)
+- (void)setObject:(id)object forKey:(NSString *)key {
+    dispatch_barrier_async(self.concurrentQueue, ^{
+        self.data[key] = object;
+    });
+}
+
+// Synchronous write with barrier
+- (void)setObjectSync:(id)object forKey:(NSString *)key {
+    dispatch_barrier_sync(self.concurrentQueue, ^{
+        self.data[key] = object;
+    });
+}
+
+@end

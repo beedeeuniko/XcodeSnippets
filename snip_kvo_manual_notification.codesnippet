@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_kvo_manual_notification</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Manual KVO notification
+
+@interface MyClass : NSObject
+@property (nonatomic, strong) NSString *observedProperty;
+@end
+
+@implementation MyClass
+
+// Disable automatic KVO for this property
++ (BOOL)automaticallyNotifiesObserversOfObservedProperty {
+    return NO;
+}
+
+// Custom setter with manual notifications
+- (void)setObservedProperty:(NSString *)observedProperty {
+    if (_observedProperty != observedProperty) {
+        // Send will change notification
+        [self willChangeValueForKey:@"observedProperty"];
+        
+        _observedProperty = observedProperty;
+        
+        // Send did change notification
+        [self didChangeValueForKey:@"observedProperty"];
+    }
+}
+
+// Manual notification for dependent key
++ (NSSet<NSString *> *)keyPathsForValuesAffectingFullName {
+    return [NSSet setWithObjects:@"firstName", @"lastName", nil];
+}
+
+- (NSString *)fullName {
+    return [NSString stringWithFormat:@"%@ %@", self.firstName, self.lastName];
+}
+
+@end
+
+// Usage: observers of fullName will be notified when firstName or lastName changes

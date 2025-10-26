@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_animation_spring</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UIView spring animation
+
+// Spring animation with damping
+[UIView animateWithDuration:0.6
+                      delay:0.0
+     usingSpringWithDamping:0.6  // 0.0 = bouncy, 1.0 = no bounce
+      initialSpringVelocity:0.5  // Initial velocity
+                    options:UIViewAnimationOptionCurveEaseInOut
+                 animations:^{
+    self.myView.transform = CGAffineTransformMakeScale(1.2, 1.2);
+    self.myView.center = CGPointMake(200, 300);
+} completion:^(BOOL finished) {
+    NSLog(@"Spring animation completed");
+}];
+
+// Bounce effect
+[UIView animateWithDuration:0.5
+                      delay:0.0
+     usingSpringWithDamping:0.3
+      initialSpringVelocity:1.0
+                    options:0
+                 animations:^{
+    self.button.transform = CGAffineTransformIdentity;
+} completion:nil];
+
+// Pop-up animation
+self.myView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+self.myView.alpha = 0.0;
+
+[UIView animateWithDuration:0.4
+                      delay:0.0
+     usingSpringWithDamping:0.5
+      initialSpringVelocity:0.0
+                    options:0
+                 animations:^{
+    self.myView.transform = CGAffineTransformIdentity;
+    self.myView.alpha = 1.0;
+} completion:nil];

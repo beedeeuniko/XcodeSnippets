@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_protocol_delegate_property</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Delegate property declaration
+
+// Forward declare protocol
+@protocol MyClassDelegate;
+
+@interface MyClass : NSObject
+
+// Delegate property (weak to avoid retain cycle)
+@property (nonatomic, weak) id<MyClassDelegate> delegate;
+
+@end
+
+// Protocol definition
+@protocol MyClassDelegate <NSObject>
+
+@required
+- (void)myClass:(MyClass *)myClass didCompleteWithResult:(id)result;
+
+@optional
+- (void)myClass:(MyClass *)myClass didFailWithError:(NSError *)error;
+- (BOOL)myClassShouldProceed:(MyClass *)myClass;
+
+@end

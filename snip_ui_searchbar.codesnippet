@@ -1,0 +1,92 @@
+@end
+	<key>IDECodeSnippetIdentifier</key>
+	<string>C9D0E1F2-A3B4-5C6D-7E8F-9A0B1C2D3E4F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>UISearchBar with delegate for filtering data</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UI Search Bar</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist><?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_searchbar</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UISearchBar with delegate
+
+@interface MyViewController () <UISearchBarDelegate>
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) NSArray *allData;
+@property (nonatomic, strong) NSMutableArray *filteredData;
+@end
+
+@implementation MyViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.allData = @[@"Apple", @"Banana", @"Cherry", @"Date", @"Elderberry"];
+    self.filteredData = [self.allData mutableCopy];
+    
+    // Create search bar
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    self.searchBar.delegate = self;
+    self.searchBar.placeholder = @"Search...";
+    
+    // Customize appearance
+    self.searchBar.barStyle = UIBarStyleDefault;
+    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    // Styles: UISearchBarStyleDefault, UISearchBarStyleProminent, UISearchBarStyleMinimal
+    
+    self.searchBar.showsCancelButton = YES;
+    self.searchBar.showsBookmarkButton = NO;
+    self.searchBar.showsSearchResultsButton = NO;
+    
+    [self.view addSubview:self.searchBar];
+}
+
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length == 0) {
+        self.filteredData = [self.allData mutableCopy];
+    } else {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", searchText];
+        self.filteredData = [[self.allData filteredArrayUsingPredicate:predicate] mutableCopy];
+    }
+    
+    [self.tableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    NSLog(@"Search for: %@", searchBar.text);
+    [searchBar resignFirstResponder]; // Dismiss keyboard
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    searchBar.text = @"";
+    self.filteredData = [self.allData mutableCopy];
+    [self.tableView reloadData];
+    [searchBar resignFirstResponder];
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:YES animated:YES];
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    [searchBar setShowsCancelButton:NO animated:YES];
+}
+
+@end

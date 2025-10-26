@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_kvo_multiple_properties</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Observe multiple properties
+
+static void *PropertyAContext = &PropertyAContext;
+static void *PropertyBContext = &PropertyBContext;
+static void *PropertyCContext = &PropertyCContext;
+
+- (void)startObserving {
+    [self.observedObject addObserver:self forKeyPath:@"propertyA" options:NSKeyValueObservingOptionNew context:PropertyAContext];
+    [self.observedObject addObserver:self forKeyPath:@"propertyB" options:NSKeyValueObservingOptionNew context:PropertyBContext];
+    [self.observedObject addObserver:self forKeyPath:@"propertyC" options:NSKeyValueObservingOptionNew context:PropertyCContext];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    
+    if (context == PropertyAContext) {
+        NSLog(@"PropertyA changed: %@", change[NSKeyValueChangeNewKey]);
+    } else if (context == PropertyBContext) {
+        NSLog(@"PropertyB changed: %@", change[NSKeyValueChangeNewKey]);
+    } else if (context == PropertyCContext) {
+        NSLog(@"PropertyC changed: %@", change[NSKeyValueChangeNewKey]);
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (void)stopObserving {
+    [self.observedObject removeObserver:self forKeyPath:@"propertyA" context:PropertyAContext];
+    [self.observedObject removeObserver:self forKeyPath:@"propertyB" context:PropertyBContext];
+    [self.observedObject removeObserver:self forKeyPath:@"propertyC" context:PropertyCContext];
+}

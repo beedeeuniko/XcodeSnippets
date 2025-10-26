@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_switch_setup</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UISwitch setup
+
+// Create switch
+UISwitch *switchControl = [[UISwitch alloc] init];
+switchControl.frame = CGRectMake(100, 100, 0, 0); // Size is automatic
+
+// Set initial state
+switchControl.on = NO;
+
+// Customize colors
+switchControl.onTintColor = [UIColor systemGreenColor];
+switchControl.thumbTintColor = [UIColor whiteColor];
+
+// Add target-action
+[switchControl addTarget:self
+                  action:@selector(switchValueChanged:)
+        forControlEvents:UIControlEventValueChanged];
+
+[self.view addSubview:switchControl];
+	<key>IDECodeSnippetIdentifier</key>
+	<string>C3D4E5F6-A7B8-9C0D-1E2F-3A4B5C6D7E8F</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>UISwitch creation and value change handling</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UI Switch Setup</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
+
+// Action method
+- (void)switchValueChanged:(UISwitch *)sender {
+    if (sender.isOn) {
+        NSLog(@"Switch is ON");
+        // Perform action when enabled
+    } else {
+        NSLog(@"Switch is OFF");
+        // Perform action when disabled
+    }
+}
+
+// Programmatically set value with animation
+[switchControl setOn:YES animated:YES];
+
+// Create with label
+UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 100, 70, 30)];
+label.text = @"Enable:";
+[self.view addSubview:label];
+
+switchControl.frame = CGRectMake(100, 100, 0, 0);
+[self.view addSubview:switchControl];

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_picker_view</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UIPickerView setup
+
+@interface MyViewController () <UIPickerViewDelegate, UIPickerViewDataSource>
+@property (nonatomic, strong) UIPickerView *pickerView;
+@property (nonatomic, strong) NSArray *pickerData;
+@end
+	<key>IDECodeSnippetIdentifier</key>
+	<string>A7B8C9D0-E1F2-3A4B-5C6D-7E8F9A0B1C2D</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>UIPickerView setup with delegate and datasource</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UI Picker View</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
+
+@implementation MyViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Setup data
+    self.pickerData = @[@"Option 1", @"Option 2", @"Option 3", @"Option 4", @"Option 5"];
+    
+    // Create picker view
+    self.pickerView = [[UIPickerView alloc] init];
+    self.pickerView.delegate = self;
+    self.pickerView.dataSource = self;
+    self.pickerView.frame = CGRectMake(0, 200, self.view.bounds.size.width, 216);
+    
+    [self.view addSubview:self.pickerView];
+}
+
+#pragma mark - UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1; // Number of columns
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    return self.pickerData.count;
+}
+
+#pragma mark - UIPickerViewDelegate
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return self.pickerData[row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSString *selectedItem = self.pickerData[row];
+    NSLog(@"Selected: %@", selectedItem);
+}
+
+// Customize row height
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 44.0;
+}
+
+// Customize column width
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {
+    return 200.0;
+}
+
+// Get selected value
+- (NSString *)getSelectedValue {
+    NSInteger selectedRow = [self.pickerView selectedRowInComponent:0];
+    return self.pickerData[selectedRow];
+}
+
+// Set selected value programmatically
+[self.pickerView selectRow:2 inComponent:0 animated:YES];
+
+@end

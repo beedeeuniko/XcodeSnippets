@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_gcd_semaphore</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Dispatch semaphore for limiting concurrent access
+
+// Create semaphore (limit to 3 concurrent operations)
+dispatch_semaphore_t semaphore = dispatch_semaphore_create(3);
+
+for (int i = 0; i < 10; i++) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Wait for semaphore (blocks if limit reached)
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        
+        // Critical section - max 3 threads execute this at once
+        NSLog(@"Task %d started", i);
+        sleep(2);
+        NSLog(@"Task %d completed", i);
+        
+        // Signal semaphore (release)
+        dispatch_semaphore_signal(semaphore);
+    });
+}
+
+// Use semaphore to wait for async operation
+- (NSData *)fetchDataSynchronously {
+    __block NSData *result = nil;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    [self fetchDataAsync:^(NSData *data, NSError *error) {
+        result = data;
+        dispatch_semaphore_signal(semaphore);
+    }];
+    
+    // Wait for signal (timeout after 10 seconds)
+    dispatch_time_t timeout = dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC);
+    dispatch_semaphore_wait(semaphore, timeout);
+    
+    return result;
+}

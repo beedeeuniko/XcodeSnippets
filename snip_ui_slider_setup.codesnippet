@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_slider_setup</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UISlider setup
+
+// Create slider
+UISlider *slider = [[UISlider alloc] initWithFrame:CGRectMake(20, 100, 280, 30)];
+
+// Set range
+slider.minimumValue = 0.0;
+slider.maximumValue = 100.0;
+slider.value = 50.0; // Initial value
+
+// Continuous updates
+slider.continuous = YES; // Send value changed events continuously (default YES)
+
+// Customize colors
+slider.minimumTrackTintColor = [UIColor systemBlueColor];
+slider.maximumTrackTintColor = [UIColor lightGrayColor];
+slider.thumbTintColor = [UIColor systemBlueColor];
+
+// Set images for thumb
+UIImage *thumbImage = [UIImage systemImageNamed:@"circle.fill"];
+[slider setThumbImage:thumbImage forState:UIControlStateNormal];
+
+// Set images for track
+UIImage *minTrackImage = [UIImage systemImageNamed:@"speaker.fill"];
+[slider setMinimumValueImage:minTrackImage];
+
+UIImage *maxTrackImage = [UIImage systemImageNamed:@"speaker.wave.3.fill"];
+[slider setMaximumValueImage:maxTrackImage];
+
+// Add target-action
+[slider addTarget:self
+           action:@selector(sliderValueChanged:)
+ forControlEvents:UIControlEventValueChanged];
+
+[self.view addSubview:slider];
+
+// Action method
+- (void)sliderValueChanged:(UISlider *)sender {
+    float value = sender.value;
+    NSLog(@"Slider value: %.2f", value);
+    
+    // Update label or perform action
+    self.valueLabel.text = [NSString stringWithFormat:@"%.0f", value];
+}
+
+// Set value programmatically with animation
+[slider setValue:75.0 animated:YES];
+	<key>IDECodeSnippetIdentifier</key>
+	<string>D4E5F6A7-B8C9-0D1E-2F3A-4B5C6D7E8F9A</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>UISlider with min/max values and continuous updates</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UI Slider Setup</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

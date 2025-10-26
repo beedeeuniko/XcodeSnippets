@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_protocol_datasource_pattern</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// DataSource pattern (similar to UITableView)
+
+@protocol CustomViewDataSource;
+
+@interface CustomView : UIView
+
+@property (nonatomic, weak) id<CustomViewDataSource> dataSource;
+
+- (void)reloadData;
+
+@end
+
+@protocol CustomViewDataSource <NSObject>
+
+@required
+- (NSInteger)numberOfItemsInCustomView:(CustomView *)customView;
+- (UIView *)customView:(CustomView *)customView viewForItemAtIndex:(NSInteger)index;
+
+@optional
+- (CGFloat)customView:(CustomView *)customView heightForItemAtIndex:(NSInteger)index;
+- (NSString *)customView:(CustomView *)customView titleForItemAtIndex:(NSInteger)index;
+
+@end
+
+@implementation CustomView
+
+- (void)reloadData {
+    NSInteger count = [self.dataSource numberOfItemsInCustomView:self];
+    
+    for (NSInteger i = 0; i < count; i++) {
+        UIView *itemView = [self.dataSource customView:self viewForItemAtIndex:i];
+        
+        CGFloat height = 44.0; // Default
+        if ([self.dataSource respondsToSelector:@selector(customView:heightForItemAtIndex:)]) {
+            height = [self.dataSource customView:self heightForItemAtIndex:i];
+        }
+        
+        // Layout itemView
+    }
+}
+
+@end

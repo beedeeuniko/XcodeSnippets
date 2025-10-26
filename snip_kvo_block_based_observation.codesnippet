@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_kvo_block_based_observation</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Block-based KVO observation (iOS 11+)
+
+@interface MyViewController ()
+@property (nonatomic, strong) NSKeyValueObservation *observation;
+@end
+
+@implementation MyViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Modern block-based KVO (auto-cleanup on dealloc)
+    __weak typeof(self) weakSelf = self;
+    self.observation = [self.observedObject observeValueForKeyPath:@"propertyName"
+                                                           options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                                                           context:NULL
+                                                        usingBlock:^(id observedObject, NSDictionary *change, void *context) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        if (!strongSelf) return;
+        
+        id oldValue = change[NSKeyValueChangeOldKey];
+        id newValue = change[NSKeyValueChangeNewKey];
+        
+        NSLog(@"Value changed from %@ to %@", oldValue, newValue);
+        [strongSelf updateUIWithNewValue:newValue];
+    }];
+}
+
+// No need for explicit removeObserver - observation is invalidated on dealloc
+
+// Manual invalidation if needed
+- (void)stopObserving {
+    [self.observation invalidate];
+    self.observation = nil;
+}
+
+@end
+
+// Multiple observations
+@property (nonatomic, strong) NSMutableArray<NSKeyValueObservation *> *observations;
+
+- (void)setupObservations {
+    self.observations = [NSMutableArray array];
+    
+    NSKeyValueObservation *obs1 = [self.object observeValueForKeyPath:@"property1" options:NSKeyValueObservingOptionNew context:NULL usingBlock:^(id obj, NSDictionary *change, void *ctx) {
+        NSLog(@"Property1 changed");
+    }];
+    [self.observations addObject:obs1];
+    
+    NSKeyValueObservation *obs2 = [self.object observeValueForKeyPath:@"property2" options:NSKeyValueObservingOptionNew context:NULL usingBlock:^(id obj, NSDictionary *change, void *ctx) {
+        NSLog(@"Property2 changed");
+    }];
+    [self.observations addObject:obs2];
+}

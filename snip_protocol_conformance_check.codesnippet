@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_protocol_conformance_check</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Check protocol conformance
+
+id object = [[MyClass alloc] init];
+
+// Check if object conforms to protocol
+if ([object conformsToProtocol:@protocol(MyProtocol)]) {
+    NSLog(@"Object conforms to MyProtocol");
+    id<MyProtocol> protocolObject = object;
+    [protocolObject requiredMethod];
+}
+
+// Check if object responds to specific selector
+if ([object respondsToSelector:@selector(optionalMethod)]) {
+    NSLog(@"Object implements optionalMethod");
+    [object performSelector:@selector(optionalMethod)];
+}
+
+// Check class conformance
+if ([MyClass conformsToProtocol:@protocol(MyProtocol)]) {
+    NSLog(@"MyClass conforms to MyProtocol");
+}
+
+// Type checking with protocol
+- (void)processObject:(id<MyProtocol>)object {
+    // object is guaranteed to conform to MyProtocol
+    [object requiredMethod];
+    
+    if ([object respondsToSelector:@selector(optionalMethod)]) {
+        [object optionalMethod];
+    }
+}

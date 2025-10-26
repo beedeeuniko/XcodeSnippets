@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_segmented_control</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UISegmentedControl setup
+
+// Create with titles
+NSArray *items = @[@"First", @"Second", @"Third"];
+UISegmentedControl *segmentedControl = [[UISegmentedControl alloc] initWithItems:items];
+segmentedControl.frame = CGRectMake(20, 100, 280, 30);
+
+// Set selected segment
+segmentedControl.selectedSegmentIndex = 0;
+
+// Add target-action
+[segmentedControl addTarget:self
+                     action:@selector(segmentChanged:)
+           forControlEvents:UIControlEventValueChanged];
+
+// Customize appearance
+segmentedControl.backgroundColor = [UIColor lightGrayColor];
+segmentedControl.tintColor = [UIColor blueColor];
+
+// iOS 13+ styling
+if (@available(iOS 13.0, *)) {
+    segmentedControl.selectedSegmentTintColor = [UIColor systemBlueColor];
+}
+
+[self.view addSubview:segmentedControl];
+
+// Action method
+- (void)segmentChanged:(UISegmentedControl *)sender {
+    NSInteger selectedIndex = sender.selectedSegmentIndex;
+    NSString *selectedTitle = [sender titleForSegmentAtIndex:selectedIndex];
+    NSLog(@"Selected segment: %ld - %@", (long)selectedIndex, selectedTitle);
+    
+    switch (selectedIndex) {
+        case 0:
+            // Handle first segment
+            break;
+        case 1:
+            // Handle second segment
+            break;
+        case 2:
+            // Handle third segment
+            break;
+    }
+}
+
+// Insert segment
+[segmentedControl insertSegmentWithTitle:@"New" atIndex:1 animated:YES];
+
+// Remove segment
+[segmentedControl removeSegmentAtIndex:2 animated:YES];
+
+// Set segment with image
+UIImage *icon = [UIImage systemImageNamed:@"star.fill"];
+[segmentedControl setImage:icon forSegmentAtIndex:0];
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B2C3D4E5-F6A7-8B9C-0D1E-2F3A4B5C6D7E</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>UISegmentedControl setup with titles, images, and value change handling</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UI Segmented Control</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_stackview_setup</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UIStackView setup (iOS 9+)
+
+// Create views to stack
+UILabel *label1 = [[UILabel alloc] init];
+label1.text = @"Label 1";
+label1.textAlignment = NSTextAlignmentCenter;
+label1.backgroundColor = [UIColor redColor];
+
+UILabel *label2 = [[UILabel alloc] init];
+label2.text = @"Label 2";
+label2.textAlignment = NSTextAlignmentCenter;
+label2.backgroundColor = [UIColor blueColor];
+
+UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+[button setTitle:@"Button" forState:UIControlStateNormal];
+button.backgroundColor = [UIColor greenColor];
+
+// Create vertical stack view
+UIStackView *stackView = [[UIStackView alloc] initWithArrangedSubviews:@[label1, label2, button]];
+stackView.axis = UILayoutConstraintAxisVertical; // or UILayoutConstraintAxisHorizontal
+stackView.distribution = UIStackViewDistributionFill;
+// Options: UIStackViewDistributionFill, UIStackViewDistributionFillEqually,
+//          UIStackViewDistributionFillProportionally, UIStackViewDistributionEqualSpacing
+
+stackView.alignment = UIStackViewAlignmentFill;
+// Options: UIStackViewAlignmentFill, UIStackViewAlignmentCenter,
+//          UIStackViewAlignmentLeading, UIStackViewAlignmentTrailing
+
+stackView.spacing = 10.0;
+stackView.translatesAutoresizingMaskIntoConstraints = NO;
+
+[self.view addSubview:stackView];
+
+// Add constraints
+[NSLayoutConstraint activateConstraints:@[
+    [stackView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:20],
+    [stackView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:20],
+    [stackView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:-20]
+]];
+
+// Add arranged subview
+UILabel *label3 = [[UILabel alloc] init];
+label3.text = @"Label 3";
+[stackView addArrangedSubview:label3];
+
+// Remove arranged subview
+[stackView removeArrangedSubview:label2];
+[label2 removeFromSuperview]; // Also remove from view hierarchy
+
+// Hide/show with animation
+[UIView animateWithDuration:0.3 animations:^{
+    label1.hidden = YES; // Stack view handles layout automatically
+}];

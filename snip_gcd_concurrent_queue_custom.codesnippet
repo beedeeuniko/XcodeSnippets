@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_gcd_concurrent_queue_custom</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Create custom concurrent queue
+dispatch_queue_t concurrentQueue = dispatch_queue_create("com.yourapp.concurrentqueue", DISPATCH_QUEUE_CONCURRENT);
+
+// Execute tasks concurrently (simultaneously)
+dispatch_async(concurrentQueue, ^{
+    NSLog(@"Task 1 - may execute in parallel");
+    sleep(2);
+    NSLog(@"Task 1 completed");
+});
+
+dispatch_async(concurrentQueue, ^{
+    NSLog(@"Task 2 - may execute in parallel");
+    sleep(1);
+    NSLog(@"Task 2 completed");
+});
+
+dispatch_async(concurrentQueue, ^{
+    NSLog(@"Task 3 - may execute in parallel");
+    sleep(1);
+    NSLog(@"Task 3 completed");
+});
+
+// Set queue attributes (iOS 8+)
+dispatch_queue_attr_t attr = dispatch_queue_attr_make_with_qos_class(
+    DISPATCH_QUEUE_CONCURRENT,
+    QOS_CLASS_USER_INITIATED,
+    -1
+);
+dispatch_queue_t priorityQueue = dispatch_queue_create("com.yourapp.priority", attr);

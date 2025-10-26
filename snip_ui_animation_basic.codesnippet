@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_animation_basic</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UIView basic animations
+
+// Simple animation
+[UIView animateWithDuration:0.3 animations:^{
+    self.myView.alpha = 0.5;
+    self.myView.frame = CGRectMake(100, 100, 200, 200);
+    self.myView.backgroundColor = [UIColor redColor];
+}];
+
+// Animation with completion
+[UIView animateWithDuration:0.5 animations:^{
+    self.myView.transform = CGAffineTransformMakeScale(1.5, 1.5);
+} completion:^(BOOL finished) {
+    if (finished) {
+        NSLog(@"Animation completed");
+    }
+}];
+
+// Animation with delay and options
+[UIView animateWithDuration:0.3
+                      delay:0.5
+                    options:UIViewAnimationOptionCurveEaseInOut
+                 animations:^{
+    self.myView.center = CGPointMake(200, 200);
+} completion:nil];
+
+// Animation options:
+// UIViewAnimationOptionCurveEaseInOut
+// UIViewAnimationOptionCurveEaseIn
+// UIViewAnimationOptionCurveEaseOut
+// UIViewAnimationOptionCurveLinear
+// UIViewAnimationOptionRepeat
+// UIViewAnimationOptionAutoreverse
+
+// Fade in/out
+[UIView animateWithDuration:0.3 animations:^{
+    self.myView.alpha = 0.0; // Fade out
+}];
+
+[UIView animateWithDuration:0.3 animations:^{
+    self.myView.alpha = 1.0; // Fade in
+}];

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_gcd_dispatch_apply</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Dispatch apply - parallel for loop
+NSArray *items = @[@1, @2, @3, @4, @5, @6, @7, @8, @9, @10];
+
+dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+// Process items in parallel
+dispatch_apply(items.count, queue, ^(size_t index) {
+    id item = items[index];
+    NSLog(@"Processing item %@ on thread %@", item, [NSThread currentThread]);
+    
+    // Perform work on item
+    sleep(1);
+});
+
+NSLog(@"All items processed");
+
+// Example: Parallel image processing
+- (void)processImagesInParallel:(NSArray<UIImage *> *)images {
+    __block NSMutableArray *processedImages = [NSMutableArray arrayWithCapacity:images.count];
+    
+    // Initialize array with placeholders
+    for (NSUInteger i = 0; i < images.count; i++) {
+        [processedImages addObject:[NSNull null]];
+    }
+    
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+    
+    dispatch_apply(images.count, queue, ^(size_t index) {
+        UIImage *image = images[index];
+        UIImage *processed = [self applyFilterToImage:image];
+        
+        @synchronized(processedImages) {
+            processedImages[index] = processed;
+        }
+    });
+    
+    // All images processed
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self displayImages:processedImages];
+    });
+}

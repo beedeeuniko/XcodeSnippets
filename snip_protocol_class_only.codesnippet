@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_protocol_class_only</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Class-only protocol (cannot be adopted by structs/enums in Swift)
+
+// Protocol that can only be adopted by classes
+@protocol ClassOnlyProtocol <NSObject>
+
+- (void)classMethod;
+
+@end
+
+// Use case: when you need to use 'weak' reference
+@interface MyClass : NSObject
+
+// This requires the protocol to be class-only
+@property (nonatomic, weak) id<ClassOnlyProtocol> delegate;
+
+@end
+
+// Alternative: AnyObject protocol for Swift interop
+@protocol ModernProtocol <AnyObject>
+
+- (void)modernMethod;
+
+@end

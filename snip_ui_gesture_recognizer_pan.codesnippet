@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_gesture_recognizer_pan</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UIPanGestureRecognizer for dragging views
+
+UIView *draggableView = [[UIView alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+draggableView.backgroundColor = [UIColor redColor];
+draggableView.userInteractionEnabled = YES;
+[self.view addSubview:draggableView];
+
+UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
+[draggableView addGestureRecognizer:panGesture];
+
+// Action method
+- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
+    UIView *view = recognizer.view;
+    CGPoint translation = [recognizer translationInView:self.view];
+    
+    if (recognizer.state == UIGestureRecognizerStateBegan || recognizer.state == UIGestureRecognizerStateChanged) {
+        // Move view
+        view.center = CGPointMake(view.center.x + translation.x, view.center.y + translation.y);
+        
+        // Reset translation
+        [recognizer setTranslation:CGPointZero inView:self.view];
+        
+    } else if (recognizer.state == UIGestureRecognizerStateEnded) {
+        // Get velocity
+        CGPoint velocity = [recognizer velocityInView:self.view];
+        NSLog(@"Pan ended with velocity: %@", NSStringFromCGPoint(velocity));
+        
+        // Animate to final position with momentum
+        CGFloat magnitude = sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
+        CGFloat slideMult = magnitude / 200;
+        
+        CGPoint finalPoint = CGPointMake(view.center.x + velocity.x * slideMult,
+                                        view.center.y + velocity.y * slideMult);
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            view.center = finalPoint;
+        }];
+    }
+}

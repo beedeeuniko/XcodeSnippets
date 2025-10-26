@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_kvo_nested_keypath</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Observe nested property (key path)
+
+// Example object structure:
+// Person has Address property
+// Address has street property
+
+// Observe nested property
+[self.person addObserver:self
+              forKeyPath:@"address.street"
+                 options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                 context:NULL];
+
+// Observe changes
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"address.street"]) {
+        NSString *oldStreet = change[NSKeyValueChangeOldKey];
+        NSString *newStreet = change[NSKeyValueChangeNewKey];
+        NSLog(@"Street changed from %@ to %@", oldStreet, newStreet);
+    }
+}
+
+// Remove observer
+- (void)dealloc {
+    [self.person removeObserver:self forKeyPath:@"address.street"];
+}
+
+// Note: If the intermediate object (address) is replaced, 
+// KVO automatically handles reregistering on the new object

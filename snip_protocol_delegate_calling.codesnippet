@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_protocol_delegate_calling</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Calling delegate methods
+
+- (void)performAction {
+    // Check if delegate responds to optional method
+    if ([self.delegate respondsToSelector:@selector(myClassShouldProceed:)]) {
+        BOOL shouldProceed = [self.delegate myClassShouldProceed:self];
+        if (!shouldProceed) {
+            return;
+        }
+    }
+    
+    // Perform work
+    id result = [self doWork];
+    
+    // Call required delegate method (still check for safety)
+    if ([self.delegate respondsToSelector:@selector(myClass:didCompleteWithResult:)]) {
+        [self.delegate myClass:self didCompleteWithResult:result];
+    }
+}
+
+- (void)handleError:(NSError *)error {
+    // Call optional delegate method if implemented
+    if ([self.delegate respondsToSelector:@selector(myClass:didFailWithError:)]) {
+        [self.delegate myClass:self didFailWithError:error];
+    }
+}

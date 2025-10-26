@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_imageview_setup</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UIImageView setup
+
+// Create image view
+UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(50, 50, 200, 200)];
+
+// Load image from bundle
+UIImage *image = [UIImage imageNamed:@"photo"];
+imageView.image = image;
+
+// Set content mode
+imageView.contentMode = UIViewContentModeScaleAspectFit;
+// Options: UIViewContentModeScaleAspectFit, UIViewContentModeScaleAspectFill,
+//          UIViewContentModeScaleToFill, UIViewContentModeCenter
+
+// Clip to bounds (important for UIViewContentModeScaleAspectFill)
+imageView.clipsToBounds = YES;
+
+// Rounded corners
+imageView.layer.cornerRadius = 10.0;
+imageView.layer.masksToBounds = YES;
+
+// Circular image
+imageView.layer.cornerRadius = imageView.frame.size.width / 2;
+imageView.layer.masksToBounds = YES;
+
+// Border
+imageView.layer.borderWidth = 2.0;
+imageView.layer.borderColor = [UIColor blackColor].CGColor;
+
+// Enable user interaction
+imageView.userInteractionEnabled = YES;
+
+// Add tap gesture
+UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+[imageView addGestureRecognizer:tap];
+
+[self.view addSubview:imageView];
+
+// Action
+- (void)imageTapped:(UITapGestureRecognizer *)recognizer {
+    NSLog(@"Image tapped");
+}
+
+// Load from URL (add to project)
+NSURL *url = [NSURL URLWithString:@"https://example.com/image.jpg"];
+NSData *data = [NSData dataWithContentsOfURL:url];
+imageView.image = [UIImage imageWithData:data];

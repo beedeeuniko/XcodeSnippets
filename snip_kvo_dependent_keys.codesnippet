@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_kvo_dependent_keys</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// KVO with dependent keys
+
+@interface Person : NSObject
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, readonly) NSString *fullName;
+@end
+
+@implementation Person
+
+// Define dependencies - fullName depends on firstName and lastName
++ (NSSet<NSString *> *)keyPathsForValuesAffectingFullName {
+    return [NSSet setWithObjects:@"firstName", @"lastName", nil];
+}
+
+- (NSString *)fullName {
+    return [NSString stringWithFormat:@"%@ %@", self.firstName ?: @"", self.lastName ?: @""];
+}
+
+@end
+
+// Usage: observe fullName, get notified when firstName or lastName changes
+Person *person = [[Person alloc] init];
+
+[person addObserver:self
+         forKeyPath:@"fullName"
+            options:NSKeyValueObservingOptionNew
+            context:NULL];
+
+// These will trigger fullName observation
+person.firstName = @"John";  // fullName observer notified
+person.lastName = @"Doe";    // fullName observer notified
+
+// Alternative: multiple dependencies
++ (NSSet<NSString *> *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
+    NSSet *keyPaths = [super keyPathsForValuesAffectingValueForKey:key];
+    
+    if ([key isEqualToString:@"displayName"]) {
+        keyPaths = [keyPaths setByAddingObjectsFromArray:@[@"firstName", @"lastName", @"nickname"]];
+    }
+    
+    return keyPaths;
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_protocol_inheritance</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Protocol inheritance
+
+// Base protocol
+@protocol Vehicle <NSObject>
+- (void)start;
+- (void)stop;
+- (NSInteger)numberOfWheels;
+@end
+
+// Extended protocol inherits from Vehicle
+@protocol Car <Vehicle>
+- (void)openTrunk;
+- (void)closeTrunk;
+- (NSInteger)numberOfDoors;
+@end
+
+// Another extended protocol
+@protocol Motorcycle <Vehicle>
+- (void)popWheelie;
+- (BOOL)hasWindshield;
+@end
+
+// Class implementing extended protocol must implement all methods
+@interface Sedan : NSObject <Car>
+@end
+
+@implementation Sedan
+
+// Must implement Vehicle methods
+- (void)start {
+    NSLog(@"Car starting");
+}
+
+- (void)stop {
+    NSLog(@"Car stopping");
+}
+
+- (NSInteger)numberOfWheels {
+    return 4;
+}
+
+// Must implement Car methods
+- (void)openTrunk {
+    NSLog(@"Trunk opened");
+}
+
+- (void)closeTrunk {
+    NSLog(@"Trunk closed");
+}
+
+- (NSInteger)numberOfDoors {
+    return 4;
+}
+
+@end

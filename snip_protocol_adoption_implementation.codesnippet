@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_protocol_adoption_implementation</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Protocol adoption and implementation
+
+// Header file - adopt protocol
+@interface MyClass : NSObject <MyProtocol>
+@end
+
+// Implementation file
+@implementation MyClass
+
+// Implement required methods
+- (void)requiredMethod {
+    NSLog(@"Required method implemented");
+}
+
+- (NSString *)requiredMethodWithParameter:(id)parameter {
+    return [NSString stringWithFormat:@"Parameter: %@", parameter];
+}
+
+// Implement optional methods (if needed)
+- (void)optionalMethod {
+    NSLog(@"Optional method implemented");
+}
+
+@end

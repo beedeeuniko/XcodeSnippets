@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_protocol_property_requirement</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Protocol with property requirements
+
+@protocol Identifiable <NSObject>
+
+@required
+// Read-only property
+@property (nonatomic, readonly) NSString *identifier;
+
+// Read-write property
+@property (nonatomic, strong) NSString *name;
+
+// Primitive property
+@property (nonatomic, assign) NSInteger age;
+
+@optional
+// Optional property
+@property (nonatomic, strong) NSString *email;
+
+@end
+
+// Implementation
+@interface Person : NSObject <Identifiable>
+@end
+
+@implementation Person
+
+// Synthesize or implement required properties
+@synthesize identifier = _identifier;
+@synthesize name = _name;
+@synthesize age = _age;
+
+// Custom getter for readonly property
+- (NSString *)identifier {
+    if (!_identifier) {
+        _identifier = [[NSUUID UUID] UUIDString];
+    }
+    return _identifier;
+}
+
+// Optional property implementation
+@synthesize email = _email;
+
+@end

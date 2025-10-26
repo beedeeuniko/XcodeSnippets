@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_kvo_add_observer</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Add KVO observer
+[self.observedObject addObserver:self
+                      forKeyPath:@"propertyName"
+                         options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                         context:NULL];
+
+// Options:
+// NSKeyValueObservingOptionNew - include new value
+// NSKeyValueObservingOptionOld - include old value
+// NSKeyValueObservingOptionInitial - send notification immediately
+// NSKeyValueObservingOptionPrior - send notification before change

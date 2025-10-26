@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_gcd_dispatch_async_background</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Dispatch async to background queue
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    // Perform heavy work on background thread
+    NSData *data = [self processLargeDataset];
+    
+    // Update UI on main thread
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateUIWithData:data];
+    });
+});
+
+// Queue priorities:
+// DISPATCH_QUEUE_PRIORITY_HIGH
+// DISPATCH_QUEUE_PRIORITY_DEFAULT
+// DISPATCH_QUEUE_PRIORITY_LOW
+// DISPATCH_QUEUE_PRIORITY_BACKGROUND

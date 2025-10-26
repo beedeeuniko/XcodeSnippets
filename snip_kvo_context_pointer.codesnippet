@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_kvo_context_pointer</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// KVO with context pointer (best practice for subclass safety)
+
+// Define unique context
+static void *MyClassKVOContext = &MyClassKVOContext;
+
+// Add observer with context
+- (void)startObserving {
+    [self.observedObject addObserver:self
+                          forKeyPath:@"propertyName"
+                             options:NSKeyValueObservingOptionNew
+                             context:MyClassKVOContext];
+}
+
+// Observe changes using context
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    
+    if (context == MyClassKVOContext) {
+        if ([keyPath isEqualToString:@"propertyName"]) {
+            id newValue = change[NSKeyValueChangeNewKey];
+            NSLog(@"Value changed to: %@", newValue);
+        }
+    } else {
+        // Pass to superclass for other observations
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+// Remove observer with context
+- (void)stopObserving {
+    [self.observedObject removeObserver:self
+                             forKeyPath:@"propertyName"
+                                context:MyClassKVOContext];
+}

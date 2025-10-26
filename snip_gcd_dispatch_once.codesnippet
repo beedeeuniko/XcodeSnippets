@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_gcd_dispatch_once</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Dispatch once (thread-safe singleton initialization)
+static dispatch_once_t onceToken;
+static id sharedInstance = nil;
+
+dispatch_once(&onceToken, ^{
+    sharedInstance = [[MyClass alloc] init];
+    NSLog(@"Instance created only once");
+});
+
+return sharedInstance;

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_gcd_serial_queue_custom</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Create custom serial queue
+dispatch_queue_t serialQueue = dispatch_queue_create("com.yourapp.serialqueue", DISPATCH_QUEUE_SERIAL);
+
+// Execute tasks serially (one after another)
+dispatch_async(serialQueue, ^{
+    NSLog(@"Task 1 - executes first");
+    sleep(1);
+});
+
+dispatch_async(serialQueue, ^{
+    NSLog(@"Task 2 - executes after Task 1");
+    sleep(1);
+});
+
+dispatch_async(serialQueue, ^{
+    NSLog(@"Task 3 - executes after Task 2");
+});
+
+// Use for thread-safe access to shared resources
+@property (nonatomic, strong) dispatch_queue_t dataQueue;
+
+- (void)setData:(id)data {
+    dispatch_async(self.dataQueue, ^{
+        self->_internalData = data;
+    });
+}
+
+- (id)getData {
+    __block id result;
+    dispatch_sync(self.dataQueue, ^{
+        result = self->_internalData;
+    });
+    return result;
+}

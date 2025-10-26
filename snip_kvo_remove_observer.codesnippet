@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_kvo_remove_observer</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Remove KVO observer (CRITICAL: must remove before dealloc)
+- (void)dealloc {
+    [self.observedObject removeObserver:self forKeyPath:@"propertyName"];
+}
+
+// Or remove when no longer needed
+- (void)stopObserving {
+    @try {
+        [self.observedObject removeObserver:self forKeyPath:@"propertyName"];
+    } @catch (NSException *exception) {
+        // Observer wasn't registered, ignore
+        NSLog(@"Exception removing observer: %@", exception);
+    }
+}
+
+// iOS 11+ safe removal
+- (void)stopObservingSafe {
+    [self.observedObject removeObserver:self 
+                             forKeyPath:@"propertyName" 
+                                context:NULL];
+}

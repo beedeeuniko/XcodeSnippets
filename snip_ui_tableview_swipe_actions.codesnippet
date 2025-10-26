@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_tableview_swipe_actions</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UITableView swipe actions (iOS 11+)
+
+#pragma mark - UITableViewDelegate
+
+// Trailing swipe actions (swipe left)
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    // Delete action
+    UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleDestructive
+                                                                               title:@"Delete"
+                                                                             handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
+        // Handle delete
+        NSLog(@"Delete item at row: %ld", (long)indexPath.row);
+        [self.data removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        completionHandler(YES);
+    }];
+    deleteAction.backgroundColor = [UIColor redColor];
+    deleteAction.image = [UIImage systemImageNamed:@"trash"];
+    
+    // Archive action
+    UIContextualAction *archiveAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                                title:@"Archive"
+                                                                              handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
+        NSLog(@"Archive item at row: %ld", (long)indexPath.row);
+        completionHandler(YES);
+    }];
+    archiveAction.backgroundColor = [UIColor orangeColor];
+    
+    UISwipeActionsConfiguration *config = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, archiveAction]];
+    config.performsFirstActionWithFullSwipe = YES; // Full swipe triggers first action
+    return config;
+}
+
+// Leading swipe actions (swipe right)
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView leadingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIContextualAction *favoriteAction = [UIContextualAction contextualActionWithStyle:UIContextualActionStyleNormal
+                                                                                 title:@"Favorite"
+                                                                               handler:^(UIContextualAction *action, UIView *sourceView, void (^completionHandler)(BOOL)) {
+        NSLog(@"Favorite item at row: %ld", (long)indexPath.row);
+        completionHandler(YES);
+    }];
+    favoriteAction.backgroundColor = [UIColor systemYellowColor];
+    favoriteAction.image = [UIImage systemImageNamed:@"star.fill"];
+    
+    return [UISwipeActionsConfiguration configurationWithActions:@[favoriteAction]];
+}
+
+@end

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_progressview</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UIProgressView for progress tracking
+
+// Create progress view
+UIProgressView *progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+// Styles: UIProgressViewStyleDefault, UIProgressViewStyleBar
+
+progressView.frame = CGRectMake(20, 100, 280, 2);
+
+// Set colors
+progressView.progressTintColor = [UIColor systemBlueColor];
+progressView.trackTintColor = [UIColor lightGrayColor];
+
+// Set initial progress (0.0 to 1.0)
+progressView.progress = 0.0;
+
+[self.view addSubview:progressView];
+
+// Update progress
+[progressView setProgress:0.5 animated:YES];
+
+// Simulate progress update
+__block float currentProgress = 0.0;
+NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1 repeats:YES block:^(NSTimer *timer) {
+    currentProgress += 0.01;
+    [progressView setProgress:currentProgress animated:YES];
+    
+    if (currentProgress >= 1.0) {
+        [timer invalidate];
+        NSLog(@"Progress completed");
+    }
+}];
+
+// Progress with label
+UILabel *progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 70, 280, 20)];
+progressLabel.textAlignment = NSTextAlignmentCenter;
+progressLabel.text = @"0%";
+[self.view addSubview:progressLabel];
+
+// Update with percentage
+- (void)updateProgress:(float)progress {
+    [self.progressView setProgress:progress animated:YES];
+    NSInteger percentage = (NSInteger)(progress * 100);
+    self.progressLabel.text = [NSString stringWithFormat:@"%ld%%", (long)percentage];
+}
+	<key>IDECodeSnippetIdentifier</key>
+	<string>F6A7B8C9-D0E1-2F3A-4B5C-6D7E8F9A0B1C</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>UIProgressView for progress tracking with animations</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UI Progress View</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

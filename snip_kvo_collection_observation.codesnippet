@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_kvo_collection_observation</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Observe collection changes (array/set)
+
+@interface MyClass : NSObject
+@property (nonatomic, strong) NSMutableArray *items;
+@end
+
+@implementation MyClass
+
+// To observe individual additions/removals, use mutable collection proxy
+- (void)addItem:(id)item {
+    [[self mutableArrayValueForKey:@"items"] addObject:item];
+    // This triggers KVO notifications
+}
+
+- (void)removeItem:(id)item {
+    [[self mutableArrayValueForKey:@"items"] removeObject:item];
+    // This triggers KVO notifications
+}
+
+@end
+
+// Observer
+static void *ItemsContext = &ItemsContext;
+
+- (void)startObserving {
+    [self.myClass addObserver:self
+                   forKeyPath:@"items"
+                      options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
+                      context:ItemsContext];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    
+    if (context == ItemsContext) {
+        NSKeyValueChange changeKind = [change[NSKeyValueChangeKindKey] integerValue];
+        
+        if (changeKind == NSKeyValueChangeInsertion) {
+            NSArray *insertedObjects = change[NSKeyValueChangeNewKey];
+            NSLog(@"Items inserted: %@", insertedObjects);
+        } else if (changeKind == NSKeyValueChangeRemoval) {
+            NSArray *removedObjects = change[NSKeyValueChangeOldKey];
+            NSLog(@"Items removed: %@", removedObjects);
+        } else if (changeKind == NSKeyValueChangeReplacement) {
+            NSLog(@"Items replaced");
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}

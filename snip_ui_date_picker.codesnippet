@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_date_picker</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UIDatePicker for date/time selection
+
+// Create date picker
+UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+datePicker.frame = CGRectMake(0, 200, self.view.bounds.size.width, 216);
+
+// Set mode
+datePicker.datePickerMode = UIDatePickerModeDate;
+// Modes: UIDatePickerModeDate, UIDatePickerModeTime, 
+//        UIDatePickerModeDateAndTime, UIDatePickerModeCountDownTimer
+
+// iOS 13.4+ style
+if (@available(iOS 13.4, *)) {
+    datePicker.preferredDatePickerStyle = UIDatePickerStyleWheels;
+    // Styles: UIDatePickerStyleWheels, UIDatePickerStyleCompact, UIDatePickerStyleInline
+}
+
+// Set date range
+NSCalendar *calendar = [NSCalendar currentCalendar];
+NSDate *today = [NSDate date];
+NSDate *minDate = [calendar dateByAddingUnit:NSCalendarUnitYear value:-5 toDate:today options:0];
+NSDate *maxDate = [calendar dateByAddingUnit:NSCalendarUnitYear value:5 toDate:today options:0];
+
+datePicker.minimumDate = minDate;
+datePicker.maximumDate = maxDate;
+
+// Set initial date
+datePicker.date = today;
+
+// Set locale
+datePicker.locale = [NSLocale currentLocale];
+datePicker.timeZone = [NSTimeZone localTimeZone];
+
+// Add target-action
+[datePicker addTarget:self
+               action:@selector(dateChanged:)
+     forControlEvents:UIControlEventValueChanged];
+
+[self.view addSubview:datePicker];
+
+// Action method
+- (void)dateChanged:(UIDatePicker *)sender {
+    NSDate *selectedDate = sender.date;
+    
+    // Format date
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateStyle = NSDateFormatterMediumStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
+    NSString *dateString = [formatter stringFromDate:selectedDate];
+    
+    NSLog(@"Selected date: %@", dateString);
+}
+
+// Get selected date
+NSDate *selectedDate = datePicker.date;
+
+// Set date programmatically
+[datePicker setDate:[NSDate date] animated:YES];
+	<key>IDECodeSnippetIdentifier</key>
+	<string>B8C9D0E1-F2A3-4B5C-6D7E-8F9A0B1C2D3E</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>UIDatePicker for date and time selection</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UI Date Picker</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>

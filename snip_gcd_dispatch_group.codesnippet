@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_gcd_dispatch_group</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// Dispatch group - wait for multiple tasks to complete
+dispatch_group_t group = dispatch_group_create();
+dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
+// Task 1
+dispatch_group_enter(group);
+dispatch_async(queue, ^{
+    // Perform task 1
+    NSLog(@"Task 1 started");
+    sleep(2);
+    NSLog(@"Task 1 completed");
+    dispatch_group_leave(group);
+});
+
+// Task 2
+dispatch_group_enter(group);
+dispatch_async(queue, ^{
+    // Perform task 2
+    NSLog(@"Task 2 started");
+    sleep(1);
+    NSLog(@"Task 2 completed");
+    dispatch_group_leave(group);
+});
+
+// Task 3
+dispatch_group_enter(group);
+dispatch_async(queue, ^{
+    // Perform task 3
+    NSLog(@"Task 3 started");
+    sleep(3);
+    NSLog(@"Task 3 completed");
+    dispatch_group_leave(group);
+});
+
+// Notify when all tasks complete
+dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+    NSLog(@"All tasks completed");
+    // Update UI
+});

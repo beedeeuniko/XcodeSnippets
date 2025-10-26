@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDECodeSnippetCompletionPrefix</key>
+	<string>snip_ui_activityindicator</string>
+	<key>IDECodeSnippetCompletionScopes</key>
+	<array>
+		<string>All</string>
+	</array>
+	<key>IDECodeSnippetContents</key>
+	<string>// UIActivityIndicatorView for loading states
+
+// Create activity indicator
+UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+// Styles: UIActivityIndicatorViewStyleLarge, UIActivityIndicatorViewStyleMedium (iOS 13+)
+
+activityIndicator.center = self.view.center;
+activityIndicator.color = [UIColor systemBlueColor];
+
+// Hide when stopped
+activityIndicator.hidesWhenStopped = YES;
+
+[self.view addSubview:activityIndicator];
+
+// Start animating
+[activityIndicator startAnimating];
+
+// Stop animating
+[activityIndicator stopAnimating];
+
+// Check if animating
+if (activityIndicator.isAnimating) {
+    NSLog(@"Activity indicator is animating");
+}
+
+// Centered with Auto Layout
+activityIndicator.translatesAutoresizingMaskIntoConstraints = NO;
+[NSLayoutConstraint activateConstraints:@[
+    [activityIndicator.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+    [activityIndicator.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor]
+]];
+
+// With background view (full screen loading)
+UIView *loadingView = [[UIView alloc] initWithFrame:self.view.bounds];
+loadingView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+
+UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
+spinner.center = loadingView.center;
+spinner.color = [UIColor whiteColor];
+[loadingView addSubview:spinner];
+[spinner startAnimating];
+
+[self.view addSubview:loadingView];
+
+// Remove loading view
+[spinner stopAnimating];
+[loadingView removeFromSuperview];
+	<key>IDECodeSnippetIdentifier</key>
+	<string>E5F6A7B8-C9D0-1E2F-3A4B-5C6D7E8F9A0B</string>
+	<key>IDECodeSnippetLanguage</key>
+	<string>Xcode.SourceCodeLanguage.Objective-C</string>
+	<key>IDECodeSnippetSummary</key>
+	<string>UIActivityIndicatorView for loading states and spinners</string>
+	<key>IDECodeSnippetTitle</key>
+	<string>UI Activity Indicator</string>
+	<key>IDECodeSnippetUserSnippet</key>
+	<true/>
+	<key>IDECodeSnippetVersion</key>
+	<integer>2</integer>
+</dict>
+</plist>
